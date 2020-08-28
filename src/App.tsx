@@ -1,51 +1,58 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { Box, Grommet, Button } from "grommet";
 
-type MostVisitedURL = chrome.topSites.MostVisitedURL;
+const commonTheme = {
+  font: {
+    family: "Roboto",
+    size: "18px",
+    height: "20px",
+  },
+};
+
+const HomeModeTheme = {
+  global: {
+    ...commonTheme,
+    colors: {
+      brand: "rgb(50, 250, 200)",
+      secondary: "rgb(50, 150, 250)",
+      text: "#ebebeb",
+    },
+  },
+};
+
+const WorkModeTheme = {
+  global: {
+    ...commonTheme,
+    colors: {
+      brand: "rgb(50, 200, 250)",
+      secondary: "rgb(50, 150, 250)",
+      text: "#ebebeb",
+    },
+  },
+};
 
 function App() {
-  const [visitedURLs, setVisitedURLs] = useState<MostVisitedURL[]>([]);
-
-  useEffect(() => {
-    console.log(chrome);
-    chrome.topSites.get((data) => {
-      setVisitedURLs(data);
-    });
-  }, []);
+  const [isWorkMode, setIsWorkMode] = useState(false);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>WORK FROM HOME BUDDY.</h1>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.!!!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Lfdsakljdsfadfslakj
-        </a>
-        <p>
-          {visitedURLs.map((url, index) => (
-            <p key={url.url}>
-              <a
-                className="App-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                href={url.url}
-              >
-                {url.title}
-              </a>
-            </p>
-          ))}
-        </p>
-      </header>
-    </div>
+    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
+      <Box
+        height="medium"
+        width="medium"
+        align="center"
+        justify="center"
+        background="brand"
+      >
+        <h1>WFH Buddy</h1>
+        <Button
+          primary
+          label={isWorkMode ? " End work mode" : "Start work mode"}
+          color="secondary"
+          onClick={() => setIsWorkMode(!isWorkMode)}
+        />
+      </Box>
+    </Grommet>
   );
 }
 

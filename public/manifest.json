@@ -10,5 +10,8 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
   "content_security_policy": "script-src 'self' 'sha256-OmPn/6yJZ0UrvZoqPoy2Fah9+pq1QAjSgNnAPt/o/fM='; object-src 'self'"
 }

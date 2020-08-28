@@ -5,6 +5,10 @@
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["topSites"],
+  "permissions": ["topSites", "cookies", "http://*/*", "https://*/*"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "content_security_policy": "script-src 'self' 'sha256-OmPn/6yJZ0UrvZoqPoy2Fah9+pq1QAjSgNnAPt/o/fM='; object-src 'self'"
 }

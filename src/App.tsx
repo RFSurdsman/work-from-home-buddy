@@ -49,7 +49,10 @@ function App() {
           primary
           label={isWorkMode ? " End work mode" : "Start work mode"}
           color="secondary"
-          onClick={() => setIsWorkMode(!isWorkMode)}
+          onClick={() => {
+            console.log("BUTTON CLICKED");
+            setIsWorkMode(!isWorkMode);
+          }}
         />
       </Box>
     </Grommet>

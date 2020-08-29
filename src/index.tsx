@@ -1,17 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { ExtensionApp, NewTabApp, IFrameApp } from "./App";
+import ExtensionApp from "./app/extension/ExtensionApp";
+import DashboardApp from "./app/dashboard/DashboardApp";
+import NotificationApp from "./app/notification/NotificationApp";
 import * as serviceWorker from "./serviceWorker";
+
 
 ReactDOM.render(
   <React.StrictMode>
     {document.getElementById("root") ? (
       <ExtensionApp />
     ) : document.getElementById("root-newtab") ? (
-      <NewTabApp />
+      <DashboardApp />
     ) : (
-      <IFrameApp />
+      <NotificationApp />
     )}
   </React.StrictMode>,
   document.getElementById("root") ??

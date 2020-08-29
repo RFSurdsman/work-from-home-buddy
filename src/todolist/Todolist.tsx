@@ -5,7 +5,7 @@ import {
   Droppable,
   Draggable,
 } from "react-beautiful-dnd";
-import { Card } from "grommet";
+import { Card, Heading } from "grommet";
 import Todo from "./Todo";
 import createPersistedState from "use-persisted-state";
 
@@ -39,10 +39,15 @@ const Todolist: React.FC = () => {
             margin="medium"
             pad="small"
             background="secondary"
+            width="medium"
             {...provided.droppableProps}
             ref={provided.innerRef}
+            align="stretch"
+            justify="center"
           >
-            <h5>Todos</h5>
+            <Heading level="2" margin="none">
+              Todos
+            </Heading>
             {todos.map((todo, index) => (
               <Draggable
                 key={todo.id}

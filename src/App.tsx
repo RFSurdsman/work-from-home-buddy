@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Box, Grommet, Button } from "grommet";
+import _ from "lodash";
+import util from "util";
 
 const commonTheme = {
   font: {
@@ -50,9 +52,21 @@ function App() {
           label={isWorkMode ? " End work mode" : "Start work mode"}
           color="secondary"
           onClick={() => {
-            console.log("BUTTON CLICKED");
+            
             setIsWorkMode(!isWorkMode);
-          }}
+            //const remove_window = util.promisify(chrome.windows.remove);
+            chrome.windows.getAll({populate: true}, (windows) => {
+              const saved_windows = windows.map(window => {
+                const window_state = _.pick(window, ['height', 'width', 'top', 'left', 'type', 'state']);
+                const urls = window.tabs!.map(tab => tab.url!);
+                chrome.windows.remove(window.id);
+                return {...window_state, url: urls};
+              })
+              // open new window to dashboard
+              chrome.windows.create({});
+            })
+          }
+        }
         />
       </Box>
     </Grommet>

@@ -10,23 +10,12 @@ import {
   Heading,
 } from "grommet";
 import createPersistedState from "use-persisted-state";
-
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-    },
-    colors: {
-      brand: "rgb(40, 230, 150)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
-    },
-  },
-};
+import { workModeTheme } from "../styles/theme";
 
 const NotificationApp: React.FC = (): JSX.Element | null => {
   const [isShowing, setIsShowing] = useState(true);
   const [progressValue, setProgressValue] = useState(0);
+  const [isWorkMode, setIsWorkMode] = createPersistedState("workMode")(false);
   const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   const incrementMeter = () => {
@@ -45,12 +34,8 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
     }
   }, [progressValue]);
 
-  if (!isShowing) {
-    return null;
-  }
-
-  return (
-    <Grommet theme={theme}>
+  return isShowing && isWorkMode ? (
+    <Grommet theme={workModeTheme}>
       <Card
         animation="fadeIn"
         pad="10px"
@@ -114,7 +99,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
         </CardBody>
       </Card>
     </Grommet>
-  );
+  ) : null;
 };
 
 export default NotificationApp;

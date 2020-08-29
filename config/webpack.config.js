@@ -520,6 +520,13 @@ module.exports = function (webpackEnv) {
               }
             );
             exec(
+              "tsc src/restrictedPage.ts --outDir build && echo restrictedPage.ts compiled!",
+              (err, stdout, stderr) => {
+                if (stdout) process.stdout.write(stdout);
+                if (stderr) process.stderr.write(stderr);
+              }
+            );
+            exec(
               'sed -E \'s/"root"/"root-newtab"/\' build/index.html > build/newtab.html && echo Newtab file sed!',
               (err, stdout, stderr) => {
                 if (stdout) process.stdout.write(stdout);

@@ -11,7 +11,7 @@ const HomeDashboard = (props: HomeDashboardProps) => {
   return (
     <>
       <Box flex="grow" align="center" justify="center">
-        <Heading level="2">WFH Buddy</Heading>
+        <Heading level="2">Balance</Heading>
         <Heading level="1">Good morning, Tony</Heading>
         <Clock type="digital" size="xlarge" margin="medium" />
         <Button

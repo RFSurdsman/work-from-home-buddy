@@ -36,15 +36,12 @@ const DashboardApp = () => {
 
   return (
     <Grommet theme={theme} full>
-      <Box fill align="center" justify="center" background="brand">
+      <Box fill justify="start" background="brand">
         <Box
             background={"url(" + cityGif + ")"}
-            align="center"
-            justify="center"
+            justify="start"
             fill
           >
-          {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-          {/* <Image fit="cover" src={cityGif} /> */}
           {isWorkMode ? (
             <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
           ) : (

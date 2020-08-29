@@ -11,14 +11,16 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
 
   return (
     <>
-      <Heading level="1">Good morning, Tony</Heading>
-      <Clock type="digital" size="xlarge" margin="medium" />
-      <Button
-        primary
-        label={"Get Started"}
-        color="secondary"
-        onClick={startWork}
-      />
+      <Box align="center" justify="center" flex="grow">
+        <Heading level="1">Good morning, Tony</Heading>
+        <Clock type="digital" size="xlarge" margin="medium" />
+        <Button
+          primary
+          label={"Get Started"}
+          color="secondary"
+          onClick={startWork}
+        />
+      </Box>
     </>
   );
 };

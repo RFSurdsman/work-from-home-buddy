@@ -12,12 +12,14 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
   return (
     <>
       <TitleBar/>
-      <Button
-        primary
-        label={"Finish Work"}
-        color="secondary"
-        onClick={startHomeMode}
-      />
+      <Box align="center" justify="center" flex="grow">
+        <Button
+          primary
+          label={"Finish Work"}
+          color="secondary"
+          onClick={startHomeMode}
+        />
+      </Box>
     </>
   )
 };

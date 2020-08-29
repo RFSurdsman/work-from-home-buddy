@@ -7,7 +7,7 @@ import updateWindows from "../components/UpdateWindows";
 import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
-import { workModeTheme, homeModeTheme } from "../styles/theme";
+import { theme } from "../styles/theme";
 
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -40,8 +40,13 @@ const DashboardApp = () => {
   };
 
   return (
-    <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme} full>
-      <Box fill align="center" justify="center" background="brand">
+    <Grommet theme={theme} full>
+      <Box
+        fill
+        align="center"
+        justify="center"
+        background={isWorkMode ? "work" : "home"}
+      >
         <Heading level="2">WFH Buddy</Heading>
         {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
         {/* <Image fit="cover" src={cityGif} /> */}

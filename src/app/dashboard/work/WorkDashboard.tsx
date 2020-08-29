@@ -4,6 +4,7 @@ import Todolist from "./todolist";
 import createPersistedState from "use-persisted-state";
 import MainWorkDashboard from "./MainWorkDashboard";
 import StartWorkDashboard from "./StartWorkDashboard";
+import BreakPage from "./BreakPage";
 
 interface WorkDashboardProps {
   startHomeMode: () => void;
@@ -11,13 +12,17 @@ interface WorkDashboardProps {
 }
 const WorkDashboard = (props: WorkDashboardProps) => {
   const { startHomeMode, time } = props;
+  const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   const useWorkStarted = createPersistedState("workStarted");
   const [isWorkStarted, setIsWorkStarted] = useWorkStarted(false);
 
   return (
     <>
-       {(isWorkStarted) ?
+      {isBreak ? 
+        <BreakPage endBreak={() => setIsBreak(false)} />
+      :
+       (isWorkStarted) ?
           <MainWorkDashboard 
             startHomeMode={() => {
               setIsWorkStarted(false)
@@ -30,9 +35,9 @@ const WorkDashboard = (props: WorkDashboardProps) => {
             startWork={() => {setIsWorkStarted(true)}}
             time={time}
           />
-        }
+      }
     </>
-  )
+  );
 };
 
 export default WorkDashboard;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DragDropContext,
   DropResult,
@@ -13,16 +13,20 @@ import {
   TextInput,
   FormField,
   Box,
+  Heading,
+  CheckBox,
 } from "grommet";
 import Todo from "./Todo";
 import createPersistedState from "use-persisted-state";
-import { Add } from "grommet-icons";
+import { Add, Close } from "grommet-icons";
 
 const Todolist: React.FC = () => {
   const myTodos = [new Todo("hi"), new Todo("hello"), new Todo("eat")];
 
   const useTodosState = createPersistedState("todos");
   const [todos, setTodos] = useTodosState<Todo[]>(myTodos);
+
+  const [addTodoValue, setAddTodoValue] = useState("");
 
   const onDragEnd = (result: DropResult) => {
     const reorder = (list: any[], startIndex: number, endIndex: number) => {
@@ -40,6 +44,18 @@ const Todolist: React.FC = () => {
     setTodos(reorder(todos, result.source.index, result.destination.index));
   };
 
+  const handleAddTodo = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      const newTodo = new Todo(addTodoValue);
+      setTodos((prevState) => [...prevState, newTodo]);
+      setAddTodoValue("");
+    }
+  };
+
+  const handleRemoveTodo = (id: number) => {
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="todoList">
@@ -54,7 +70,11 @@ const Todolist: React.FC = () => {
             align="stretch"
             justify="center"
           >
-            <CardHeader>Todos</CardHeader>
+            <CardHeader pad="small">
+              <Heading level="2" size="small" margin="none">
+                Todos
+              </Heading>
+            </CardHeader>
             {todos.map((todo, index) => (
               <Draggable
                 key={todo.id}
@@ -63,6 +83,7 @@ const Todolist: React.FC = () => {
               >
                 {(provided, snapshot) => (
                   <Card
+                    direction="row"
                     background="brand"
                     pad="small"
                     margin="small"
@@ -70,7 +91,12 @@ const Todolist: React.FC = () => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
+                    <Close onClick={() => handleRemoveTodo(todo.id)} />
                     {todo.description}
+                    <CheckBox
+                      checked={todo.done}
+                      onChange={(event) => (todo.done = event.target.checked)}
+                    />
                   </Card>
                 )}
               </Draggable>
@@ -90,8 +116,14 @@ const Todolist: React.FC = () => {
                   pad="none"
                   pad-left="medium"
                 >
-                  <Add size="medium" />
-                  <TextInput plain={true} placeholder="add a new todo" />
+                  <Add size="medium" margin-left="medium" />
+                  <TextInput
+                    plain={true}
+                    placeholder="add a new todo"
+                    value={addTodoValue}
+                    onChange={(event) => setAddTodoValue(event.target.value)}
+                    onKeyDown={handleAddTodo}
+                  />
                 </Box>
               </Card>
             </CardFooter>

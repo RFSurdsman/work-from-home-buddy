@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { Box, Grommet, Button, Image, Card } from "grommet";
 import createPersistedState from "use-persisted-state";
-import Todolist from "../../todolist";
+import Todolist from "../dashboard/work/todolist";
 import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
 import theme from "../styles/theme";

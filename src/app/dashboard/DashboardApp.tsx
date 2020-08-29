@@ -5,8 +5,8 @@ import createPersistedState from "use-persisted-state";
 import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
 import toggleBookmarks from "../components/ToggleBookmarks";
-import HomeDashboard from "./components/HomeDashboard";
-import WorkDashboard from "./components/WorkDashboard";
+import HomeDashboard from "./home/HomeDashboard";
+import WorkDashboard from "./work/WorkDashboard";
 import theme from "../styles/theme";
   
 const DashboardApp = () => {

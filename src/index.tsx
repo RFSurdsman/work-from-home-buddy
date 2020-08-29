@@ -5,6 +5,7 @@ import ExtensionApp from "./app/extension/ExtensionApp";
 import DashboardApp from "./app/dashboard/DashboardApp";
 import NotificationApp from "./app/notification/NotificationApp";
 import * as serviceWorker from "./serviceWorker";
+import MainWorkDashboard from "./app/dashboard/work/MainWorkDashboard";
 
 
 ReactDOM.render(
@@ -12,7 +13,8 @@ ReactDOM.render(
     {document.getElementById("root") ? (
       <ExtensionApp />
     ) : document.getElementById("root-newtab") ? (
-      <DashboardApp />
+      // <DashboardApp />
+      <MainWorkDashboard startHomeMode={() => {}} />
     ) : (
       <NotificationApp />
     )}

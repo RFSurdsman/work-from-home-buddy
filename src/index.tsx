@@ -6,9 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {document.getElementById("root") ? <App /> : <h1>Death.</h1>}
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root") ?? document.getElementById("root-newtab")
 );
 
 // If you want your app to work offline and load faster, you can change

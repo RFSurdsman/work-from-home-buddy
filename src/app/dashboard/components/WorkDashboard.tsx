@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grommet, Button, Image, Card } from "grommet";
+import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
 import Todolist from "../../../todolist";
 
 interface WorkDashboardProps {
@@ -12,11 +12,11 @@ const WorkDashboard = (props: WorkDashboardProps) => {
 
   return (
     <>
-      <h3>Good morning, Tony</h3>
-      <h1>{new Date(time).toLocaleTimeString()}</h1>
+       <Heading level="1">Good morning, Tony</Heading>
+      <Clock type="digital" size="xlarge" margin="medium" />
       <Button
         primary
-        label={"Start work mode"}
+        label={"Finish Work"}
         color="secondary"
         onClick={startHomeMode}
       />

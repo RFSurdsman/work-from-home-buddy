@@ -3,7 +3,7 @@ import { Box, Grommet, Button, Heading, Clock, CardBody, Meter } from "grommet";
 import createPersistedState from "use-persisted-state";
 import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
-import { workModeTheme, homeModeTheme } from "../styles/theme";
+import { theme } from "../styles/theme";
 
 const ExtensionApp: React.FC = (): JSX.Element => {
   const useWorkModeState = createPersistedState("workMode");
@@ -13,13 +13,13 @@ const ExtensionApp: React.FC = (): JSX.Element => {
   const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
 
   return (
-    <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme}>
+    <Grommet theme={theme}>
       <Box
         height="medium"
         width="medium"
         align="center"
         justify="center"
-        background="brand"
+        background={isWorkMode ? "work" : "home"}
       >
         <Heading level="1">WFH Buddy</Heading>
         <Clock type="digital" size="xlarge" margin="medium" />

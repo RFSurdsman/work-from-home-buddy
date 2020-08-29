@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Grommet,
@@ -7,25 +7,36 @@ import {
   CardBody,
   Meter,
   Button,
+  Heading,
 } from "grommet";
+import createPersistedState from "use-persisted-state";
+import { workModeTheme } from "../styles/theme";
 
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-    },
-    colors: {
-      brand: "rgb(40, 230, 150)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
-    },
-  },
-};
+const NotificationApp: React.FC = (): JSX.Element | null => {
+  const [isShowing, setIsShowing] = useState(true);
+  const [progressValue, setProgressValue] = useState(0);
+  const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
-const NotificationApp = () => {
-  return (
-    <Grommet theme={theme}>
+  const incrementMeter = () => {
+    if (isShowing) {
+      setTimeout(() => {
+        setProgressValue((p) => p + 0.1);
+        incrementMeter();
+      }, 100);
+    }
+  };
+
+  useEffect(incrementMeter, []);
+  useEffect(() => {
+    if (progressValue >= 100) {
+      setProgressValue(0);
+    }
+  }, [progressValue]);
+
+  return isShowing ? (
+    <Grommet theme={workModeTheme}>
       <Card
+        animation="fadeIn"
         pad="10px"
         height="200px"
         width="400px"
@@ -34,22 +45,48 @@ const NotificationApp = () => {
         background="brand"
         round="large"
       >
+        <div style={{ top: "10px", right: "10px", position: "absolute" }}>
+          <Button
+            size="small"
+            primary
+            label="X"
+            color="red"
+            onClick={() => {
+              setIsShowing(false);
+              setIsBreak(false);
+            }}
+          />
+        </div>
+
         <CardHeader pad="small">
-          <b>Pomdoro Notification</b>
+          <Box direction="row">
+            <b>Pomodoro Notification</b>
+          </Box>
         </CardHeader>
         <CardBody pad="medium" direction="row">
           <Box align="center" justify="center" height="100%" width="50%">
-            <h2 style={{ textAlign: "center" }}>Time for a break soon!</h2>
-            <Button primary label="Start" color="secondary" />
+            <Heading level="2" style={{ textAlign: "center" }}>
+              Time for a break soon!
+            </Heading>
+            <Button
+              primary
+              label="Start"
+              color="secondary"
+              onClick={() => {
+                setIsBreak(true);
+                setProgressValue(0);
+                chrome.tabs.create({
+                  url: chrome.runtime.getURL("newtab.html"),
+                });
+              }}
+            />
           </Box>
           <Box align="center" justify="center" height="100%" width="50%">
             <Meter
               values={[
                 {
-                  value: 60,
-                  label: "sixty",
-                  color: "rgb(50, 200, 250)",
-                  onClick: () => {},
+                  value: progressValue,
+                  color: "secondary",
                 },
               ]}
               round
@@ -61,7 +98,7 @@ const NotificationApp = () => {
         </CardBody>
       </Card>
     </Grommet>
-  );
+  ) : null;
 };
 
 export default NotificationApp;

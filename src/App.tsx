@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Box, Grommet, Button } from "grommet";
+import { Box, Grommet, Button, Image, Card } from "grommet";
 import createPersistedState from "use-persisted-state";
+import cityGif from "./resources/city.gif";
+
+import Todolist from "./todolist";
 
 const commonTheme = {
   font: {
     family: "Roboto",
     size: "36px",
-    height: "20px",
+    height: "40px",
   },
 };
 
@@ -176,6 +179,7 @@ export const NewTabApp = () => {
         <h6>WFH Buddy</h6>
         <h3>Good morning, Tony</h3>
         <h1>{new Date(time).toLocaleTimeString()}</h1>
+        {/* <Image fit="cover" src={cityGif} /> */}
         <Button
           primary
           label={isWorkMode ? " End work mode" : "Start work mode"}
@@ -186,6 +190,7 @@ export const NewTabApp = () => {
             setIsWorkMode(workMode);
           }}
         />
+        <Todolist />
       </Box>
     </Grommet>
   );

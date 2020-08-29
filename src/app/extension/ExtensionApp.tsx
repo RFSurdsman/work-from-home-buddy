@@ -21,7 +21,7 @@ const ExtensionApp: React.FC = (): JSX.Element => {
         justify="center"
         background={isWorkMode ? "work" : "home"}
       >
-        <Heading level="1">WFH Buddy</Heading>
+        <Heading level="1">Balance</Heading>
         <Clock type="digital" size="xlarge" margin="medium" />
         {isWorkMode && (
           <CardBody pad="medium" direction="row">
@@ -50,7 +50,7 @@ const ExtensionApp: React.FC = (): JSX.Element => {
         <Box direction="row" align="center" justify="center" gap="small">
           <Button
             primary
-            label={isWorkMode ? "End Work" : "Start Work"}
+            label={isWorkMode ? "Finish Work" : "Start Work"}
             color="secondary"
             onClick={() => {
               updateWindows(savedWindows, setSavedWindows, () =>

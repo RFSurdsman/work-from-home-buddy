@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
-import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
+import { Box, Grommet } from "grommet";
 import createPersistedState from "use-persisted-state";
 import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
@@ -8,7 +8,6 @@ import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
 import { theme } from "../styles/theme";
-import MenuButton from "./components/MenuButton";
 import cityGif from "../../resources/beach.png";
 
 const DashboardApp = () => {
@@ -52,9 +51,6 @@ const DashboardApp = () => {
           justify="center"
           fill
         >
-          <Heading level="2">WFH Buddy</Heading>
-          {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-          {/* <Image fit="cover" src={cityGif} /> */}
           {isWorkMode ? (
             <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
           ) : (

@@ -11,7 +11,7 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
 
   return (
     <>
-      <TitleBar/>
+      Main Work Dashboard
       <Button
         primary
         label={"Finish Work"}
@@ -19,7 +19,7 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
         onClick={startHomeMode}
       />
     </>
-  )
+  );
 };
 
 export default MainWorkDashboard;

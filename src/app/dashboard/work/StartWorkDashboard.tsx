@@ -11,8 +11,7 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
 
   return (
     <>
-      <Heading level="1">Good morning, Tony</Heading>
-      <Clock type="digital" size="xlarge" margin="medium" />
+      Start Work Dashboard
       <Button
         primary
         label={"Get Started"}

@@ -5,7 +5,7 @@ import createPersistedState from "use-persisted-state";
 import Todolist from "../dashboard/work/todolist";
 import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
-import theme from "../styles/theme";
+import { workModeTheme, homeModeTheme } from "../styles/theme";
 
 const ExtensionApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -15,7 +15,7 @@ const ExtensionApp = () => {
   const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
 
   return (
-    <Grommet theme={theme}>
+    <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme}>
       <Box
         height="medium"
         width="medium"

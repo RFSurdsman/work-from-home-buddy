@@ -40,6 +40,7 @@ const DashboardApp = () => {
         setHomeBookmarksId
       );
       setIsWorkMode(workMode);
+      alert(workMode);
     }, 100);
   };
 
@@ -51,9 +52,6 @@ const DashboardApp = () => {
         justify="center"
         background={"url(" + cityGif + ")"}
       >
-        <Heading level="2">WFH Buddy</Heading>
-        {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-        {/* <Image fit="cover" src={cityGif} /> */}
         {isWorkMode ? (
           <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
         ) : (

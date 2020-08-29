@@ -12,7 +12,7 @@ import {
   CardBody,
 } from "grommet";
 import { DateList } from "./StartWorkDashboard";
-import Todolist from "./todolist";
+import Todolist from "./todolist/ToDoList_MainDash";
 import createPersistedState from "use-persisted-state";
 
 interface MainWorkDashboardProps {
@@ -68,8 +68,8 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
         >
           <CardBody pad="medium" direction="row">
             <Box align="center" justify="center">
-              <Clock type="analog" size='xlarge' />
-              <Clock type="digital" precision="minutes" size='xlarge' />
+              <Clock type="analog" size="xlarge" />
+              <Clock type="digital" precision="minutes" size="xlarge" />
             </Box>
           </CardBody>
         </Box>

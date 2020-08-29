@@ -160,7 +160,7 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
       if (sourceId === "What I did yesterday") {
         mySetTodos(reorder(myTodos, source.index, dest.index));
       } else {
-        otherSetTodos(reorder(myTodos, source.index, dest.index));
+        otherSetTodos(reorder(otherTodos, source.index, dest.index));
       }
     } else {
       if (sourceId === "What I did yesterday") {

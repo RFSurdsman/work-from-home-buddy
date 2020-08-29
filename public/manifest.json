@@ -12,7 +12,8 @@
     "cookies",
     "http://*/*",
     "https://*/*",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "background": {
     "scripts": ["background.js"],
@@ -23,9 +24,10 @@
   },
   "content_scripts": [
     {
-      "js": ["restrictedPage.js"],
+      "js": ["contentPage.js"],
       "matches": ["http://*/*", "https://*/*"]
     }
   ],
-  "content_security_policy": "script-src 'self' 'sha256-OmPn/6yJZ0UrvZoqPoy2Fah9+pq1QAjSgNnAPt/o/fM='; object-src 'self'"
+  "web_accessible_resources": ["iframe.html"],
+  "content_security_policy": "script-src 'self' 'sha256-OmPn/6yJZ0UrvZoqPoy2Fah9+pq1QAjSgNnAPt/o/fM=' 'sha256-QAj9SgqS0tkqFXsMg6gbHzN3KfNnrPW0N0FCdMzN3MI='; object-src 'self'"
 }

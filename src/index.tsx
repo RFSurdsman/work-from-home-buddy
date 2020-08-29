@@ -1,14 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { ExtensionApp, NewTabApp } from "./App";
+import ExtensionApp from "./app/extension/ExtensionApp";
+import DashboardApp from "./app/dashboard/DashboardApp";
+import NotificationApp from "./app/notification/NotificationApp";
 import * as serviceWorker from "./serviceWorker";
+
 
 ReactDOM.render(
   <React.StrictMode>
-    {document.getElementById("root") ? <ExtensionApp /> : <NewTabApp />}
+    {document.getElementById("root") ? (
+      <ExtensionApp />
+    ) : document.getElementById("root-newtab") ? (
+      <DashboardApp />
+    ) : (
+      <NotificationApp />
+    )}
   </React.StrictMode>,
-  document.getElementById("root") ?? document.getElementById("root-newtab")
+  document.getElementById("root") ??
+    document.getElementById("root-newtab") ??
+    document.getElementById("root-iframe")
 );
 
 // If you want your app to work offline and load faster, you can change
@@ -18,4 +29,4 @@ serviceWorker.unregister();
 
 // Trick for hot reloading
 require("./background");
-require("./restrictedPage");
+require("./contentPage");

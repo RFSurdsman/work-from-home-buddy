@@ -7,36 +7,15 @@ import {
   CardBody,
   Meter,
   Button,
+  Heading,
 } from "grommet";
+import createPersistedState from "use-persisted-state";
+import { workModeTheme } from "../styles/theme";
 
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-    },
-    colors: {
-      brand: "rgb(40, 230, 150)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
-    },
-  },
-};
-
-const breakTheme = {
-  global: {
-    ...theme.global,
-    colors: {
-      brand: "rgb(50, 200, 250)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
-    },
-  },
-};
-
-const NotificationApp = () => {
+const NotificationApp: React.FC = (): JSX.Element | null => {
   const [isShowing, setIsShowing] = useState(true);
   const [progressValue, setProgressValue] = useState(0);
-  const [isBreak, setIsBreak] = useState(false);
+  const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   const incrementMeter = () => {
     if (isShowing) {
@@ -54,12 +33,8 @@ const NotificationApp = () => {
     }
   }, [progressValue]);
 
-  if (!isShowing) {
-    return null;
-  }
-
-  return (
-    <Grommet theme={isBreak ? breakTheme : theme}>
+  return isShowing ? (
+    <Grommet theme={workModeTheme}>
       <Card
         animation="fadeIn"
         pad="10px"
@@ -78,6 +53,7 @@ const NotificationApp = () => {
             color="red"
             onClick={() => {
               setIsShowing(false);
+              setIsBreak(false);
             }}
           />
         </div>
@@ -89,20 +65,19 @@ const NotificationApp = () => {
         </CardHeader>
         <CardBody pad="medium" direction="row">
           <Box align="center" justify="center" height="100%" width="50%">
-            <h2 style={{ textAlign: "center" }}>
-              {isBreak ? "On a break." : "Time for a break soon!"}
-            </h2>
+            <Heading level="2" style={{ textAlign: "center" }}>
+              Time for a break soon!
+            </Heading>
             <Button
               primary
-              label={isBreak ? "Back to work" : "Start"}
-              color={isBreak ? "red" : "secondary"}
+              label="Start"
+              color="secondary"
               onClick={() => {
-                if (isBreak) {
-                  setIsShowing(false);
-                } else {
-                  setIsBreak(true);
-                  setProgressValue(0);
-                }
+                setIsBreak(true);
+                setProgressValue(0);
+                chrome.tabs.create({
+                  url: chrome.runtime.getURL("newtab.html"),
+                });
               }}
             />
           </Box>
@@ -111,9 +86,7 @@ const NotificationApp = () => {
               values={[
                 {
                   value: progressValue,
-                  label: "sixty",
-                  color: isBreak ? "rgb(0, 255, 0)" : "secondary",
-                  onClick: () => {},
+                  color: "secondary",
                 },
               ]}
               round
@@ -125,7 +98,7 @@ const NotificationApp = () => {
         </CardBody>
       </Card>
     </Grommet>
-  );
+  ) : null;
 };
 
 export default NotificationApp;

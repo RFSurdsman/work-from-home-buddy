@@ -8,6 +8,8 @@ import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
 import { theme } from "../styles/theme";
+import MenuButton from "./components/MenuButton";
+import cityGif from "../../resources/city.gif";
 
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -28,15 +30,17 @@ const DashboardApp = () => {
 
   const workHomeSwitch = () => {
     updateWindows(savedWindows, setSavedWindows);
-    let workMode = !isWorkMode;
-    toggleBookmarks(
-      workMode,
-      workBookmarksId,
-      homeBookmarksId,
-      setWorkBookmarksId,
-      setHomeBookmarksId
-    );
-    setIsWorkMode(workMode);
+    setTimeout(() => {
+      let workMode = !isWorkMode;
+      toggleBookmarks(
+        workMode,
+        workBookmarksId,
+        homeBookmarksId,
+        setWorkBookmarksId,
+        setHomeBookmarksId
+      );
+      setIsWorkMode(workMode);
+    }, 100);
   };
 
   return (
@@ -45,7 +49,7 @@ const DashboardApp = () => {
         fill
         align="center"
         justify="center"
-        background={isWorkMode ? "work" : "home"}
+        background={"url(" + cityGif + ")"}
       >
         <Heading level="2">WFH Buddy</Heading>
         {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}

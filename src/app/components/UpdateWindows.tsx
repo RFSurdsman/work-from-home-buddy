@@ -3,12 +3,13 @@ import _ from "lodash";
 
 const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: WindowInfo[]) => void) => {
   chrome.windows.getAll({populate: true}, (windows) => {
+    let window_ids = [] as number[];
     const new_saved_windows: WindowInfo[] = windows.map(window => {
+      window_ids.push(window.id);
       const window_state = _.pick(window, ['height', 'width', 'top', 'left', 'type', 'state']);
       const urls = window.tabs!
                     .map(tab => tab.url!)
                     .filter(url => !url.startsWith("chrome://newtab"));
-      chrome.windows.remove(window.id);
       return {...window_state, url: urls};
     });
     
@@ -21,6 +22,12 @@ const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: Wi
       })
     :
       chrome.windows.create({});
+    
+    setTimeout(()=> {
+      window_ids.forEach(id => {
+        chrome.windows.remove(id);
+      })
+    }, 500);
 
     setSavedWindows(new_saved_windows);
   });

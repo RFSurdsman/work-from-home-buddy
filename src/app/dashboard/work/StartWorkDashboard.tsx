@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button, Heading, Grid, CheckBox, Paragraph } from "grommet";
 import Todolist from "./todolist";
+import TitleBar from "../components/TitleBar";
 
 let tasks = [
   "Watch Lecture",

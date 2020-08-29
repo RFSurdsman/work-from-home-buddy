@@ -12,7 +12,8 @@
     "cookies",
     "http://*/*",
     "https://*/*",
-    "storage"
+    "storage",
+    "tabs"
   ],
   "background": {
     "scripts": ["background.js"],

@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import _ from "lodash";
 import { Box, Grommet, Button, Image, Card } from "grommet";
 import createPersistedState from "use-persisted-state";
 import cityGif from "./resources/city.gif";
 
 import Todolist from "./todolist";
+
+
+interface WindowInfo {
+  url: string[];
+  height?: number | undefined;
+  width?: number | undefined;
+  top?: number | undefined;
+  left?: number | undefined;
+  type: string;
+  state: string;
+}
 
 const commonTheme = {
   font: {
@@ -36,6 +48,28 @@ const WorkModeTheme = {
   },
 };
 
+const update_windows = (savedWindows: WindowInfo[], setSavedWindows: (windows: WindowInfo[]) => void) => {
+  chrome.windows.getAll({populate: true}, (windows) => {
+    const saved_windows: WindowInfo[] = windows.map(window => {
+      const window_state = _.pick(window, ['height', 'width', 'top', 'left', 'type', 'state']);
+      const urls = window.tabs!
+                    .map(tab => tab.url!)
+                    .filter(url => !url.startsWith("chrome://newtab"));
+      chrome.windows.remove(window.id);
+      console.log(urls)
+      return {...window_state, url: urls};
+    });
+
+    savedWindows.forEach((window: WindowInfo, i: Number) => {
+        (i === savedWindows.length - 1) ?
+          chrome.windows.create({...window, url: ["chrome://newtab", ...window.url]})
+        :
+          chrome.windows.create({...window})
+    })
+
+    setSavedWindows(saved_windows);
+  });
+}
 // function MyApp() {
 //   const [isWorkMode, setIsWorkMode] = useState(false);
 //   const [homeBookmarkId, setHomeBookmarkId] = useState('');
@@ -80,7 +114,10 @@ const WorkModeTheme = {
 
 export const ExtensionApp = () => {
   const useWorkModeState = createPersistedState("workMode");
+  const useWindowsState = createPersistedState("windows");
+
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
+  const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
 
   return (
     <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
@@ -97,8 +134,8 @@ export const ExtensionApp = () => {
           label={isWorkMode ? " End work mode" : "Start work mode"}
           color="secondary"
           onClick={() => {
-            let workMode = !isWorkMode;
-            setIsWorkMode(workMode);
+            update_windows(savedWindows, setSavedWindows);
+            setIsWorkMode(!isWorkMode);
           }}
         />
       </Box>
@@ -108,11 +145,13 @@ export const ExtensionApp = () => {
 
 export const NewTabApp = () => {
   const useWorkModeState = createPersistedState("workMode");
-  const useHomeBookmarksIdState = createPersistedState("homeBookmarksId");
-  const useWorkBookmarksIdState = createPersistedState("workBookmarksId");
+  const useWindowsState = createPersistedState("windows");
+  const useHomeBookmarksIdState = createPersistedState('homeBookmarksId');
+  const useWorkBookmarksIdState = createPersistedState('workBookmarksId');
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
-  const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState("");
-  const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState("");
+  const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState('');
+  const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState('');
+  const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {
@@ -194,6 +233,7 @@ export const NewTabApp = () => {
           label={isWorkMode ? " End work mode" : "Start work mode"}
           color="secondary"
           onClick={() => {
+            update_windows(savedWindows, setSavedWindows);
             let workMode = !isWorkMode;
             toggleBookmarks(workMode);
             setIsWorkMode(workMode);

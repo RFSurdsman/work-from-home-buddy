@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Box, Grommet, Button } from "grommet";
 
@@ -32,7 +32,7 @@ const WorkModeTheme = {
   },
 };
 
-function App() {
+export const ExtensionApp = () => {
   const [isWorkMode, setIsWorkMode] = useState(false);
 
   return (
@@ -57,6 +57,25 @@ function App() {
       </Box>
     </Grommet>
   );
-}
+};
 
-export default App;
+export const NewTabApp = () => {
+  const [isWorkMode, setIsWorkMode] = useState(false);
+
+  return (
+    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme} full>
+      <Box fill align="center" justify="center" background="brand">
+        <h1>WFH Buddy</h1>
+        <Button
+          primary
+          label={isWorkMode ? " End work mode" : "Start work mode"}
+          color="secondary"
+          onClick={() => {
+            console.log("BUTTON CLICKED");
+            setIsWorkMode(!isWorkMode);
+          }}
+        />
+      </Box>
+    </Grommet>
+  );
+};

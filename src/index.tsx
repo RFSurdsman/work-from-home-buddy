@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import { ExtensionApp, NewTabApp } from "./App";
+import ExtensionApp from "./app/extension/ExtensionApp";
+import DashboardApp from "./app/dashboard/DashboardApp";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    {document.getElementById("root") ? <ExtensionApp /> : <NewTabApp />}
+    {document.getElementById("root") ? <ExtensionApp /> : <DashboardApp />}
   </React.StrictMode>,
   document.getElementById("root") ?? document.getElementById("root-newtab")
 );

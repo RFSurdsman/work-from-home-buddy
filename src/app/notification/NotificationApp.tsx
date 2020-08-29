@@ -7,21 +7,10 @@ import {
   CardBody,
   Meter,
   Button,
+  Heading,
 } from "grommet";
 import createPersistedState from "use-persisted-state";
-
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-    },
-    colors: {
-      brand: "rgb(40, 230, 150)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
-    },
-  },
-};
+import { workModeTheme } from "../styles/theme";
 
 const NotificationApp: React.FC = (): JSX.Element | null => {
   const [isShowing, setIsShowing] = useState(true);
@@ -44,12 +33,8 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
     }
   }, [progressValue]);
 
-  if (!isShowing) {
-    return null;
-  }
-
-  return (
-    <Grommet theme={theme}>
+  return isShowing ? (
+    <Grommet theme={workModeTheme}>
       <Card
         animation="fadeIn"
         pad="10px"
@@ -80,7 +65,9 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
         </CardHeader>
         <CardBody pad="medium" direction="row">
           <Box align="center" justify="center" height="100%" width="50%">
-            <h2 style={{ textAlign: "center" }}>Time for a break soon!</h2>
+            <Heading level="2" style={{ textAlign: "center" }}>
+              Time for a break soon!
+            </Heading>
             <Button
               primary
               label="Start"
@@ -99,9 +86,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
               values={[
                 {
                   value: progressValue,
-                  label: "sixty",
-                  color: isBreak ? "rgb(0, 255, 0)" : "secondary",
-                  onClick: () => {},
+                  color: "secondary",
                 },
               ]}
               round
@@ -113,7 +98,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
         </CardBody>
       </Card>
     </Grommet>
-  );
+  ) : null;
 };
 
 export default NotificationApp;

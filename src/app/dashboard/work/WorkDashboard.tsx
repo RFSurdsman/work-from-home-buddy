@@ -24,6 +24,7 @@ const WorkDashboard = (props: WorkDashboardProps) => {
       ) : isWorkStarted ? (
         <MainWorkDashboard
           startHomeMode={() => {
+            console.log("Finishing day");
             setIsWorkStarted(false);
             startHomeMode();
           }}

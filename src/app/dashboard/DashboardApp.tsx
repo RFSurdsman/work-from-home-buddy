@@ -20,10 +20,30 @@ const DashboardApp = () => {
   const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState("");
   const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
   const [time, setTime] = useState(Date.now());
+  const [isWorkedState, setIsWorkedStarted] = createPersistedState(
+    "workStarted"
+  )(false);
 
   const workHomeSwitch = () => {
-    let workMode = !isWorkMode;
+    const workMode = !isWorkMode;
     setIsWorkMode(workMode);
+
+    if (!workMode) {
+      setIsWorkedStarted(false);
+    }
+
+    /*
+    updateWindows(savedWindows, setSavedWindows, () => {
+      setIsWorkMode(workMode);
+    });
+    toggleBookmarks(
+      workMode,
+      workBookmarksId,
+      homeBookmarksId,
+      setWorkBookmarksId,
+      setHomeBookmarksId
+    );
+    */
   };
 
   return (

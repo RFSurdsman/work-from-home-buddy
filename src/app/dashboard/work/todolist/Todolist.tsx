@@ -79,7 +79,7 @@ const Todolist: React.FC<Props> = (props: Props): JSX.Element => {
             fill
             pad="medium"
             round="medium"
-            background="light-2"
+            background="rgba(0, 0, 0, 0.5);"
             width="medium"
             {...provided.droppableProps}
             ref={provided.innerRef}
@@ -87,7 +87,7 @@ const Todolist: React.FC<Props> = (props: Props): JSX.Element => {
             justify="center"
           >
             <CardHeader pad="small">
-              <Heading level="2" size="small" margin="none" color="#000">
+              <Heading level="2" size="small" margin="none" color="#FFFFFF">
                 {title}
               </Heading>
             </CardHeader>

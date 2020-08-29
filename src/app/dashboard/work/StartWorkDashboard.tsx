@@ -46,32 +46,6 @@ let events: DateSchedule[] = [
       },
     ],
   },
-  {
-    date: "Wed, 02 Sep 2020",
-    events: [
-      {
-        title: "Sprint Planning",
-        time: "10.00am - 11.00am",
-      },
-    ],
-  },
-  {
-    date: "Thu, 03 Sep 2020",
-    events: [],
-  },
-  {
-    date: "Fri, 04 Sep 2020",
-    events: [
-      {
-        title: "Sprint Planning",
-        time: "10.00am - 11.00am",
-      },
-      {
-        title: "Design Layout Review",
-        time: "11.30am - 12.30pm",
-      },
-    ],
-  },
 ];
 
 const ToDoItem = (task: string) => {
@@ -93,12 +67,12 @@ export const DateList = (dateSchedule: DateSchedule) => {
   return (
     <Box margin="small">
       <Box border="bottom">
-        <Heading level={4} margin="none" color="dark-2">
+        <Heading level={4} margin="none" color="white">
           {dateSchedule.date}
         </Heading>
       </Box>
       {dateSchedule.events.map((event) => (
-        <Box background="brand" margin="xsmall">
+        <Box background="brand" margin="xsmall" round="small" pad="small">
           <Heading level={5} margin="xsmall">
             {event.title}
           </Heading>
@@ -138,11 +112,11 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
         <Box
           gridArea="calendar"
           round="medium"
-          background="light-2"
+          background="rgba(0, 0, 0, 0.5);"
           pad="medium"
         >
-          <Heading level={3} margin="none" color="#000">
-            Weekly Schedule
+          <Heading level={3} margin="none" color="white">
+            Schedule
           </Heading>
           {events.map((dateSchedule) => DateList(dateSchedule))}
         </Box>

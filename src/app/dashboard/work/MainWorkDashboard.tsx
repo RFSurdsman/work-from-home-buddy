@@ -9,10 +9,12 @@ import {
   Clock,
   Grid,
   Meter,
+  CardBody,
 } from "grommet";
 import TitleBar from "../components/TitleBar";
 import { DateList } from "./StartWorkDashboard";
 import Todolist from "./todolist";
+import createPersistedState from "use-persisted-state";
 
 interface MainWorkDashboardProps {
   startHomeMode: () => void;
@@ -36,53 +38,85 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
   props: MainWorkDashboardProps
 ): JSX.Element => {
   const { startHomeMode } = props;
+  const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   return (
-    <>
-      <Button
-        primary
-        label={"Finish Work"}
-        color="secondary"
-        onClick={startHomeMode}
-      />
+    <Box fill justify="center" align="center" pad="xlarge">
       <Grid
-        rows={["large"]}
-        columns={["1/4", "auto", "auto"]}
+        fill
+        rows={["auto"]}
+        columns={["1/3", "1/3", "1/3"]}
+        gap="medium"
         areas={[
-          { name: "time", start: [0, 0], end: [0, 0] },
-          { name: "schedule", start: [1, 0], end: [1, 0] },
-          { name: "tasks", start: [2, 0], end: [2, 0] },
+          { name: "calendar", start: [1, 0], end: [1, 0] },
+          { name: "yesterday", start: [0, 0], end: [0, 0] },
+          { name: "tomorrow", start: [2, 0], end: [2, 0] },
         ]}
       >
         <Box
-          gridArea="time"
-          background="dark-2"
+          gridArea="yesterday"
+          background="rgba(0, 0, 0, 0.5);"
           justify="center"
           align="center"
+          round="medium"
+          pad="medium"
         >
-          <Clock type="digital" precision="minutes" size="xlarge" />
-          <Button primary color="secondary" label="Take a Break" />
+          <CardBody pad="medium" direction="row">
+            <Box align="center" justify="center" height="100%" width="50%">
+              <Clock type="digital" precision="minutes" size="xlarge" />
+              <Heading level="3" style={{ textAlign: "center" }}>
+                Break in 17 minutes.
+              </Heading>
+              <Button
+                primary
+                label="Start"
+                color="secondary"
+                onClick={() => {
+                  setIsBreak(true);
+                }}
+              />
+            </Box>
+            <Box align="center" justify="center" height="100%" width="50%">
+              <Meter
+                values={[
+                  {
+                    value: 36,
+                    color: "secondary",
+                  },
+                ]}
+                round
+                type="circle"
+                aria-label="meter"
+                thickness="large"
+              />
+            </Box>
+          </CardBody>
         </Box>
-        <Box gridArea="schedule" background="light-5">
+        <Box
+          gridArea="calendar"
+          round="medium"
+          background="rgba(0, 0, 0, 0.5);"
+          pad="medium"
+        >
+          <Heading level={3} margin="none" color="white">
+            Schedule
+          </Heading>
           {DateList(event)}
         </Box>
-        <Box gridArea="tasks" background="light-2">
-          <Todolist />
-          <Meter
-            values={[
-              {
-                value: 36,
-                color: "secondary",
-              },
-            ]}
-            round
-            type="circle"
-            aria-label="meter"
-            thickness="large"
-          />
+
+        <Box gridArea="tomorrow">
+          <Todolist title="What I'll do today" />
         </Box>
       </Grid>
-    </>
+      <Button
+        primary
+        color="secondary"
+        label="Finish Your Day"
+        size="large"
+        margin={{ top: "20px" }}
+        onClick={startHomeMode}
+      />
+    </Box>
   );
 };
 

@@ -40,7 +40,12 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
   const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   return (
-    <Box fill justify="center" align="center" pad="xlarge">
+    <Box
+      fill
+      justify="center"
+      align="center"
+      pad={{ bottom: "xlarge", left: "large", right: "xlarge" }}
+    >
       <Grid
         fill
         rows={["auto"]}
@@ -107,6 +112,7 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
           <Todolist title="What I'll do today" />
         </Box>
       </Grid>
+      <br />
       <Button
         primary
         color="secondary"

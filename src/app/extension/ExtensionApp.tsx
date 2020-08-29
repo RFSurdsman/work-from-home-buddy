@@ -53,8 +53,9 @@ const ExtensionApp: React.FC = (): JSX.Element => {
             label={isWorkMode ? "End Work" : "Start Work"}
             color="secondary"
             onClick={() => {
-              updateWindows(savedWindows, setSavedWindows);
-              setIsWorkMode(!isWorkMode);
+              updateWindows(savedWindows, setSavedWindows, () =>
+                setIsWorkMode(!isWorkMode)
+              );
             }}
           />
           <Button

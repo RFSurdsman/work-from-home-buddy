@@ -140,7 +140,7 @@ const Todolist: React.FC<Props> = (props: Props): JSX.Element => {
                 <TextInput
                   icon={<Add />}
                   plain={true}
-                  placeholder="add a new todo"
+                  placeholder="new"
                   value={addTodoValue}
                   onChange={(event) => setAddTodoValue(event.target.value)}
                   onKeyDown={handleAddTodo}

@@ -32,10 +32,7 @@ const DashboardApp = () => {
       setIsWorkedStarted(false);
     }
 
-    /*
-    updateWindows(savedWindows, setSavedWindows, () => {
-      setIsWorkMode(workMode);
-    });
+    updateWindows(savedWindows, setSavedWindows, () => setIsWorkMode(workMode));
     toggleBookmarks(
       workMode,
       workBookmarksId,
@@ -43,17 +40,12 @@ const DashboardApp = () => {
       setWorkBookmarksId,
       setHomeBookmarksId
     );
-    */
   };
 
   return (
     <Grommet theme={theme} full>
       <Box fill justify="start" background="brand">
-        <Box
-            background={"url(" + cityGif + ")"}
-            justify="start"
-            fill
-          >
+        <Box background={"url(" + cityGif + ")"} justify="start" fill>
           {isWorkMode ? (
             <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
           ) : (

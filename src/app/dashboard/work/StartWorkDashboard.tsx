@@ -94,7 +94,12 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
   const { startWork, time } = props;
 
   return (
-    <Box fill justify="center" align="center" pad="xlarge">
+    <Box
+      fill
+      justify="center"
+      align="center"
+      pad={{ bottom: "xlarge", left: "large", right: "xlarge" }}
+    >
       <Grid
         fill
         rows={["xsmall", "auto"]}
@@ -108,7 +113,7 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
         ]}
       >
         <Box gridArea="header" justify="center">
-          <Heading margin="medium">Plan Your Day</Heading>
+          <Heading>Plan Your Day</Heading>
         </Box>
         <Box
           gridArea="calendar"

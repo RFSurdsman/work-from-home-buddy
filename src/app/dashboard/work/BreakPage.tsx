@@ -20,7 +20,13 @@ const BreakPage: React.FC<Props> = (props: Props): JSX.Element => {
   useEffect(incrementMeter, []);
 
   return (
-    <Box fill align="center" justify="center" background="brand">
+    <Box
+      align="center"
+      justify="center"
+      background="brand"
+      pad="large"
+      round="medium"
+    >
       <Heading level="1">Relax - you're on a Pomodoro break.</Heading>
       <Heading level="2">5 minutes remaining.</Heading>
       <Meter

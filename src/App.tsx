@@ -106,10 +106,11 @@ export const ExtensionApp = () => {
 
 export const NewTabApp = () => {
   const useWorkModeState = createPersistedState("workMode");
-  const useHomeBookmarkIdState = createPersistedState('homeBookmarkId');
+  const useHomeBookmarksIdState = createPersistedState('homeBookmarksId');
+  const useWorkBookmarksIdState = createPersistedState('workBookmarksId');
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
-  const [homeBookmarkId, setHomeBookmarkId] = useHomeBookmarkIdState('');
-
+  const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState('');
+  const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState('');
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {
@@ -131,23 +132,40 @@ export const NewTabApp = () => {
         chrome.bookmarks.create({
           'title': 'Home Bookmarks'
         }, (homeBookmarks) => {
-          setHomeBookmarkId(homeBookmarks.id);
+          setHomeBookmarksId(homeBookmarks.id);
           bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
             chrome.bookmarks.move(bookmark.id, { 'parentId': homeBookmarks.id });
-          })
-          console.log('Successfully created home bookmarks with id: ' + homeBookmarks.id);
-        })
-      } else {
-        chrome.bookmarks.getChildren(homeBookmarkId, children => {
+          });
+        });
+
+        chrome.bookmarks.getChildren(workBookmarksId, children => {
           children.forEach(bookmark => {
             chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
           });
 
-          chrome.bookmarks.remove(homeBookmarkId, () => {
-            console.log('Removed bookmark with id: ' + homeBookmarkId);
+          chrome.bookmarks.remove(workBookmarksId);
+        });
+        setWorkBookmarksId('');
+
+      } else {
+        chrome.bookmarks.create({
+          'title': 'Work Bookmarks'
+        }, (workBookmarks) => {
+          setWorkBookmarksId(workBookmarks.id);
+          bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
+            chrome.bookmarks.move(bookmark.id, { 'parentId': workBookmarks.id });
           });
         });
-        setHomeBookmarkId('');
+
+        chrome.bookmarks.getChildren(homeBookmarksId, children => {
+          children.forEach(bookmark => {
+            chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
+          });
+
+          chrome.bookmarks.remove(homeBookmarksId);
+        });
+        setHomeBookmarksId('');
+
       }
     });
   };

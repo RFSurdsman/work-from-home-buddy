@@ -19,9 +19,8 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
         color="secondary"
         onClick={startWork}
       />
-      <Todolist />
     </>
-  )
+  );
 };
 
 export default StartWorkDashboard;

@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Clock, Heading } from "grommet";
 import MenuButton from "./MenuButton";
-import { WiDaySunny } from "weather-icons-react";
 
 const TitleBar = () => {
   return (

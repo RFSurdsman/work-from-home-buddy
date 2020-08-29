@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
-import Todolist from "./todolist";
-import createPersistedState from "use-persisted-state";
+import TitleBar from "../components/TitleBar";
 
 interface MainWorkDashboardProps {
   startHomeMode: () => void;
@@ -12,6 +11,7 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
 
   return (
     <>
+      <TitleBar/>
       <Button
         primary
         label={"Finish Work"}

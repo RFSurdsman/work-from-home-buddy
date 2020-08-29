@@ -8,7 +8,7 @@ import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
 import theme from "../styles/theme";
-import { Menu } from "grommet-icons";
+import MenuButton from "./components/MenuButton";
   
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -38,29 +38,21 @@ const DashboardApp = () => {
   
   return (
     <Grommet theme={theme} full>
-      <Box fill background="brand" alignContent="start" justify="start">
-        <Button 
-          icon={<Menu size="medium"/>} 
-          alignSelf="start" 
-          focusIndicator={false} 
-          size="medium"
-        />
-        <Box flex="grow" align="center" justify="center">
-          <Heading level="2">WFH Buddy</Heading>
-          {/* <Image fit="cover" src={cityGif} /> */}
-          {(isWorkMode) ?
-            <WorkDashboard 
-              startHomeMode={workHomeSwitch}
-              time={time}
-            />
-          :
-            <HomeDashboard 
-              startWorkMode={workHomeSwitch}
-              time={time}
-            />
-          }
-        </Box>
+      <Box fill background="brand" justify="start">
+        {/* <Image fit="cover" src={cityGif} /> */}
+        {(isWorkMode) ?
+          <WorkDashboard 
+            startHomeMode={workHomeSwitch}
+            time={time}
+          />
+        :
+          <HomeDashboard 
+            startWorkMode={workHomeSwitch}
+            time={time}
+          />
+        }
       </Box>
+
     </Grommet>
   );
 };

@@ -19,10 +19,15 @@ import Todo from "./Todo";
 import createPersistedState from "use-persisted-state";
 import { Add, Close } from "grommet-icons";
 
-const Todolist: React.FC = () => {
+interface Props {
+  title: string;
+}
+
+const Todolist: React.FC<Props> = (props: Props): JSX.Element => {
+  const { title } = props;
   const myTodos = [new Todo("hi"), new Todo("hello"), new Todo("eat")];
 
-  const useTodosState = createPersistedState("todos");
+  const useTodosState = createPersistedState(title);
   const [todos, setTodos] = useTodosState<Todo[]>(myTodos);
 
   const [addTodoValue, setAddTodoValue] = useState("");
@@ -71,9 +76,10 @@ const Todolist: React.FC = () => {
       <Droppable droppableId="todoList">
         {(provided, snapshot) => (
           <Card
-            margin="medium"
-            pad="small"
-            background="secondary"
+            fill
+            pad="medium"
+            round="medium"
+            background="light-2"
             width="medium"
             {...provided.droppableProps}
             ref={provided.innerRef}
@@ -81,8 +87,8 @@ const Todolist: React.FC = () => {
             justify="center"
           >
             <CardHeader pad="small">
-              <Heading level="2" size="small" margin="none">
-                Todos
+              <Heading level="2" size="small" margin="none" color="#000">
+                {title}
               </Heading>
             </CardHeader>
             {todos.map((todo, index) => (

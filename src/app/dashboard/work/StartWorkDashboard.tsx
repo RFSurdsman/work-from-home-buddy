@@ -133,12 +133,7 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
           { name: "tomorrow", start: [2, 1], end: [2, 1] },
         ]}
       >
-        <Box
-          gridArea="header"
-          round="medium"
-          background="brand"
-          justify="center"
-        >
+        <Box gridArea="header" justify="center">
           <Heading margin="medium">Plan Your Day</Heading>
         </Box>
         <Box
@@ -152,19 +147,11 @@ const StartWorkDashboard = (props: StartWorkDashboardProps) => {
           </Heading>
           {events.map((dateSchedule) => DateList(dateSchedule))}
         </Box>
-        <Box
-          gridArea="yesterday"
-          round="medium"
-          background="light-2"
-          pad="medium"
-        >
-          <Heading level={3} margin="none" color="#000">
-            Yesterday
-          </Heading>
-          {tasks.map((task) => ToDoItem(task))}
+        <Box gridArea="yesterday">
+          <Todolist title="What I did yesterday" />
         </Box>
         <Box gridArea="tomorrow">
-          <Todolist />
+          <Todolist title="What I'll do today" />
         </Box>
       </Grid>
       <Button

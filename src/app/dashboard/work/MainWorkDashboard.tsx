@@ -11,7 +11,6 @@ import {
   Meter,
   CardBody,
 } from "grommet";
-import TitleBar from "../components/TitleBar";
 import { DateList } from "./StartWorkDashboard";
 import Todolist from "./todolist";
 import createPersistedState from "use-persisted-state";

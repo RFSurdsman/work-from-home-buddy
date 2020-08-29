@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
+import TitleBar from "../components/TitleBar";
 
 interface HomeDashboardProps {
   startWorkMode: () => void;
@@ -10,8 +11,9 @@ const HomeDashboard = (props: HomeDashboardProps) => {
 
   return (
     <>
+      <TitleBar menu={true}/>
       <Box flex="grow" align="center" justify="center">
-        <Heading level="2">WFH Buddy</Heading>
+        <Heading level="2">Balance</Heading>
         <Heading level="1">Good morning, Tony</Heading>
         <Clock type="digital" size="xlarge" margin="medium" />
         <Button

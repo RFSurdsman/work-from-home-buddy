@@ -48,13 +48,12 @@ const DashboardApp = () => {
 
   return (
     <Grommet theme={theme} full>
-      <Box fill align="center" justify="center" background="brand">
+      <Box fill justify="start" background="brand">
         <Box
-          background={"url(" + cityGif + ")"}
-          align="center"
-          justify="center"
-          fill
-        >
+            background={"url(" + cityGif + ")"}
+            justify="start"
+            fill
+          >
           {isWorkMode ? (
             <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
           ) : (

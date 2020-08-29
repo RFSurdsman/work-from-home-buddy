@@ -15,7 +15,6 @@ import { workModeTheme } from "../styles/theme";
 const NotificationApp: React.FC = (): JSX.Element | null => {
   const [isShowing, setIsShowing] = useState(true);
   const [progressValue, setProgressValue] = useState(0);
-  const [isWorkMode, setIsWorkMode] = createPersistedState("workMode")(false);
   const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
   const incrementMeter = () => {
@@ -34,7 +33,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
     }
   }, [progressValue]);
 
-  return isShowing && isWorkMode ? (
+  return isShowing ? (
     <Grommet theme={workModeTheme}>
       <Card
         animation="fadeIn"

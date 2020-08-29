@@ -510,22 +510,20 @@ module.exports = function (webpackEnv) {
       {
         apply: (compiler) => {
           compiler.hooks.afterEmit.tap("AfterEmitPlugin", (compilation) => {
-            /*
             exec(
-              "tsc src/background.ts --outDir build && echo background.ts compiled!",
+              "(test -f build/background.js && echo background.js already exists) || (tsc src/background.ts --outDir build && echo background.ts compiled!)",
               (err, stdout, stderr) => {
                 if (stdout) process.stdout.write(stdout);
                 if (stderr) process.stderr.write(stderr);
               }
             );
             exec(
-              "tsc src/contentPage.ts --outDir build && echo contentPage.ts compiled!",
+              "(test -f build/contentPage.js && echo contentPage.js already exists) || (tsc src/contentPage.ts --outDir build && echo contentPage.ts compiled!)",
               (err, stdout, stderr) => {
                 if (stdout) process.stdout.write(stdout);
                 if (stderr) process.stderr.write(stderr);
               }
             );
-            */
             exec(
               'sed -E \'s/"root"/"root-newtab"/\' build/index.html > build/newtab.html && echo Newtab file sed!',
               (err, stdout, stderr) => {

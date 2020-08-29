@@ -7,6 +7,7 @@ import {
   CardBody,
   Meter,
   Button,
+  Heading,
 } from "grommet";
 import createPersistedState from "use-persisted-state";
 
@@ -80,7 +81,9 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
         </CardHeader>
         <CardBody pad="medium" direction="row">
           <Box align="center" justify="center" height="100%" width="50%">
-            <h2 style={{ textAlign: "center" }}>Time for a break soon!</h2>
+            <Heading level="2" style={{ textAlign: "center" }}>
+              Time for a break soon!
+            </Heading>
             <Button
               primary
               label="Start"
@@ -99,9 +102,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
               values={[
                 {
                   value: progressValue,
-                  label: "sixty",
-                  color: isBreak ? "rgb(0, 255, 0)" : "secondary",
-                  onClick: () => {},
+                  color: "secondary",
                 },
               ]}
               round

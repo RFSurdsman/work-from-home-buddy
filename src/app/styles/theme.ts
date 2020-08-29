@@ -14,4 +14,4 @@ export const theme = {
   },
 };
 
-export default workModeTheme;
+export default theme;

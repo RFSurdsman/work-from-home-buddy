@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grommet, Button, Image, Card, Heading, Clock, Grid } from "grommet";
+import { Box, Grommet, Button, Image, Card, Heading, Clock, Grid, Meter } from "grommet";
 import TitleBar from "../components/TitleBar";
 import theme from '../../styles/theme';
 import { DateList } from '../../planning/PlanningApp';
+import Todolist from "./todolist";
 
 interface MainWorkDashboardProps {
   startHomeMode: () => void;
@@ -51,7 +52,21 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
           <Box gridArea="schedule" background="light-5">
             {DateList(event)}  
           </Box>
-          <Box gridArea="tasks" background="light-2" />
+          <Box gridArea="tasks" background="light-2">
+            <Todolist />
+            <Meter
+                values={[
+                  {
+                    value: 36,
+                    color: "secondary",
+                  },
+                ]}
+                round
+                type="circle"
+                aria-label="meter"
+                thickness="large"
+              />
+          </Box>
         </Grid>
       </Grommet>
     </>

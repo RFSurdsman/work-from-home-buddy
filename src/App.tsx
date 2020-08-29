@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Box, Grommet, Button } from "grommet";
+import createPersistedState from "use-persisted-state";
 
 const commonTheme = {
   font: {
@@ -33,7 +34,8 @@ const WorkModeTheme = {
 };
 
 export const ExtensionApp = () => {
-  const [isWorkMode, setIsWorkMode] = useState(false);
+  const useWorkModeState = createPersistedState("workMode");
+  const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
 
   return (
     <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
@@ -60,7 +62,8 @@ export const ExtensionApp = () => {
 };
 
 export const NewTabApp = () => {
-  const [isWorkMode, setIsWorkMode] = useState(false);
+  const useWorkModeState = createPersistedState("workMode");
+  const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
 
   return (
     <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme} full>

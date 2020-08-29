@@ -40,43 +40,42 @@ const WorkModeTheme = {
 //   const [isWorkMode, setIsWorkMode] = useState(false);
 //   const [homeBookmarkId, setHomeBookmarkId] = useState('');
 
-  // const setupWorkMode = (isWorkMode: boolean, setHomeBookmarkId: any) => {
-  //   chrome.windows.getAll({ 'populate': true }, windows => {
-  //     console.log(windows);
-  //   });
-    
-  //   chrome.bookmarks.getTree(bookmarkTree => {
-  //     // Store bookmarks in bookmark bar
-  //     if (!bookmarkTree[0].children) {
-  //       // Error because bookmark tree always has two children
-  //       return;
-  //     }
-  //     let bookmarkBar = bookmarkTree[0].children[0];
+// const setupWorkMode = (isWorkMode: boolean, setHomeBookmarkId: any) => {
+//   chrome.windows.getAll({ 'populate': true }, windows => {
+//     console.log(windows);
+//   });
 
-  //     console.log(bookmarkBar);
+//   chrome.bookmarks.getTree(bookmarkTree => {
+//     // Store bookmarks in bookmark bar
+//     if (!bookmarkTree[0].children) {
+//       // Error because bookmark tree always has two children
+//       return;
+//     }
+//     let bookmarkBar = bookmarkTree[0].children[0];
 
+//     console.log(bookmarkBar);
 
-  //     if (isWorkMode) {
-  //       chrome.bookmarks.create({
-  //         'title': 'My Home Bookmarks'
-  //       }, (homeBookmarks) => {
-  //         setHomeBookmarkId(homeBookmarks.id);
-  //         bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
-  //           chrome.bookmarks.move(bookmark.id, { 'parentId': homeBookmarks.id });
-  //         })
-  //         console.log('Successfully created home bookmarks with id: ' + homeBookmarks.id);
-  //       })
-  //     } else {
-  //       chrome.bookmarks.getChildren(homeBookmarkId, children => {
-  //         children.forEach(bookmark => {
-  //           chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
-  //         })
-  //       })
-  //       console.log('Removed bookmark with id: ' + homeBookmarkId);
-  //       setHomeBookmarkId('');
-  //     }
-      
-  //   });
+//     if (isWorkMode) {
+//       chrome.bookmarks.create({
+//         'title': 'My Home Bookmarks'
+//       }, (homeBookmarks) => {
+//         setHomeBookmarkId(homeBookmarks.id);
+//         bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
+//           chrome.bookmarks.move(bookmark.id, { 'parentId': homeBookmarks.id });
+//         })
+//         console.log('Successfully created home bookmarks with id: ' + homeBookmarks.id);
+//       })
+//     } else {
+//       chrome.bookmarks.getChildren(homeBookmarkId, children => {
+//         children.forEach(bookmark => {
+//           chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
+//         })
+//       })
+//       console.log('Removed bookmark with id: ' + homeBookmarkId);
+//       setHomeBookmarkId('');
+//     }
+
+//   });
 //   }
 
 export const ExtensionApp = () => {
@@ -109,11 +108,11 @@ export const ExtensionApp = () => {
 
 export const NewTabApp = () => {
   const useWorkModeState = createPersistedState("workMode");
-  const useHomeBookmarksIdState = createPersistedState('homeBookmarksId');
-  const useWorkBookmarksIdState = createPersistedState('workBookmarksId');
+  const useHomeBookmarksIdState = createPersistedState("homeBookmarksId");
+  const useWorkBookmarksIdState = createPersistedState("workBookmarksId");
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
-  const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState('');
-  const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState('');
+  const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState("");
+  const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState("");
   const [time, setTime] = useState(Date.now());
 
   useEffect(() => {
@@ -122,8 +121,8 @@ export const NewTabApp = () => {
     }, 1000);
   });
 
-  const toggleBookmarks = (isWorkMode: boolean) => {    
-    chrome.bookmarks.getTree(bookmarkTree => {
+  const toggleBookmarks = (isWorkMode: boolean) => {
+    chrome.bookmarks.getTree((bookmarkTree) => {
       // Store bookmarks in bookmark bar
       if (!bookmarkTree[0].children) {
         // Error because bookmark tree always has two children
@@ -132,43 +131,53 @@ export const NewTabApp = () => {
       let bookmarkBar = bookmarkTree[0].children[0];
 
       if (isWorkMode) {
-        chrome.bookmarks.create({
-          'title': 'Home Bookmarks'
-        }, (homeBookmarks) => {
-          setHomeBookmarksId(homeBookmarks.id);
-          bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
-            chrome.bookmarks.move(bookmark.id, { 'parentId': homeBookmarks.id });
-          });
-        });
+        chrome.bookmarks.create(
+          {
+            title: "Home Bookmarks",
+          },
+          (homeBookmarks) => {
+            setHomeBookmarksId(homeBookmarks.id);
+            bookmarkBar.children &&
+              bookmarkBar.children.forEach((bookmark) => {
+                chrome.bookmarks.move(bookmark.id, {
+                  parentId: homeBookmarks.id,
+                });
+              });
+          }
+        );
 
-        chrome.bookmarks.getChildren(workBookmarksId, children => {
-          children.forEach(bookmark => {
-            chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
+        chrome.bookmarks.getChildren(workBookmarksId, (children) => {
+          children.forEach((bookmark) => {
+            chrome.bookmarks.move(bookmark.id, { parentId: bookmarkBar.id });
           });
 
           chrome.bookmarks.remove(workBookmarksId);
         });
-        setWorkBookmarksId('');
-
+        setWorkBookmarksId("");
       } else {
-        chrome.bookmarks.create({
-          'title': 'Work Bookmarks'
-        }, (workBookmarks) => {
-          setWorkBookmarksId(workBookmarks.id);
-          bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
-            chrome.bookmarks.move(bookmark.id, { 'parentId': workBookmarks.id });
-          });
-        });
+        chrome.bookmarks.create(
+          {
+            title: "Work Bookmarks",
+          },
+          (workBookmarks) => {
+            setWorkBookmarksId(workBookmarks.id);
+            bookmarkBar.children &&
+              bookmarkBar.children.forEach((bookmark) => {
+                chrome.bookmarks.move(bookmark.id, {
+                  parentId: workBookmarks.id,
+                });
+              });
+          }
+        );
 
-        chrome.bookmarks.getChildren(homeBookmarksId, children => {
-          children.forEach(bookmark => {
-            chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
+        chrome.bookmarks.getChildren(homeBookmarksId, (children) => {
+          children.forEach((bookmark) => {
+            chrome.bookmarks.move(bookmark.id, { parentId: bookmarkBar.id });
           });
 
           chrome.bookmarks.remove(homeBookmarksId);
         });
-        setHomeBookmarksId('');
-
+        setHomeBookmarksId("");
       }
     });
   };
@@ -191,6 +200,26 @@ export const NewTabApp = () => {
           }}
         />
         <Todolist />
+      </Box>
+    </Grommet>
+  );
+};
+
+export const IFrameApp = () => {
+  const useWorkModeState = createPersistedState("workMode");
+  const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
+
+  return (
+    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
+      <Box
+        height="200px"
+        width="400px"
+        align="center"
+        justify="center"
+        background="brand"
+        round="large"
+      >
+        <h4>NOTIFICATION</h4>
       </Box>
     </Grommet>
   );

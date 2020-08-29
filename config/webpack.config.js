@@ -151,8 +151,6 @@ module.exports = function (webpackEnv) {
       // the line below with these two lines if you prefer the stock client:
       // require.resolve('webpack-dev-server/client') + '?/',
       // require.resolve('webpack/hot/dev-server'),
-      isEnvDevelopment &&
-        require.resolve("react-dev-utils/webpackHotDevClient"),
       // Finally, this is your app's code:
       paths.appIndexJs,
       // We include the app code last so that if there is a runtime error during
@@ -520,7 +518,7 @@ module.exports = function (webpackEnv) {
               }
             );
             exec(
-              "tsc src/restrictedPage.ts --outDir build && echo restrictedPage.ts compiled!",
+              "tsc src/contentPage.ts --outDir build && echo contentPage.ts compiled!",
               (err, stdout, stderr) => {
                 if (stdout) process.stdout.write(stdout);
                 if (stderr) process.stderr.write(stderr);
@@ -528,6 +526,13 @@ module.exports = function (webpackEnv) {
             );
             exec(
               'sed -E \'s/"root"/"root-newtab"/\' build/index.html > build/newtab.html && echo Newtab file sed!',
+              (err, stdout, stderr) => {
+                if (stdout) process.stdout.write(stdout);
+                if (stderr) process.stderr.write(stderr);
+              }
+            );
+            exec(
+              'sed -E \'s/"root"/"root-iframe"/\' build/index.html > build/iframe.html && echo Iframe file sed!',
               (err, stdout, stderr) => {
                 if (stdout) process.stdout.write(stdout);
                 if (stderr) process.stderr.write(stderr);

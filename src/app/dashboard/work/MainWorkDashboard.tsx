@@ -48,17 +48,33 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
     >
       <Grid
         fill
-        rows={["auto"]}
+        rows={["1/2", "1/2"]}
         columns={["1/3", "1/3", "1/3"]}
         gap="medium"
         areas={[
-          { name: "calendar", start: [1, 0], end: [1, 0] },
-          { name: "yesterday", start: [0, 0], end: [0, 0] },
-          { name: "tomorrow", start: [2, 0], end: [2, 0] },
+          { name: "clock", start: [0, 0], end: [0, 0] },
+          { name: "timer", start: [0, 1], end: [0, 1] },
+          { name: "calendar", start: [1, 0], end: [1, 1] },
+          { name: "tomorrow", start: [2, 0], end: [2, 1] },
         ]}
       >
         <Box
-          gridArea="yesterday"
+          gridArea="clock"
+          background="rgba(0, 0, 0, 0.5);"
+          justify="center"
+          align="center"
+          round="medium"
+          pad="medium"
+        >
+          <CardBody pad="medium" direction="row">
+            <Box align="center" justify="center">
+              <Clock type="analog" size='xlarge' />
+              <Clock type="digital" precision="minutes" size='xlarge' />
+            </Box>
+          </CardBody>
+        </Box>
+        <Box
+          gridArea="timer"
           background="rgba(0, 0, 0, 0.5);"
           justify="center"
           align="center"
@@ -67,7 +83,6 @@ const MainWorkDashboard: React.FC<MainWorkDashboardProps> = (
         >
           <CardBody pad="medium" direction="row">
             <Box align="center" justify="center" height="100%" width="50%">
-              <Clock type="digital" precision="minutes" size="xlarge" />
               <Heading level="3" style={{ textAlign: "center" }}>
                 Break in 17 minutes.
               </Heading>

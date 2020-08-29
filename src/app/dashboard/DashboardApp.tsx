@@ -8,6 +8,7 @@ import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
 import { workModeTheme, homeModeTheme } from "../styles/theme";
+import cityGif from "../../resources/city.gif";
 
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -41,15 +42,20 @@ const DashboardApp = () => {
 
   return (
     <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme} full>
-      <Box fill align="center" justify="center" background="brand">
-        <Heading level="2">WFH Buddy</Heading>
-        {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-        {/* <Image fit="cover" src={cityGif} /> */}
-        {isWorkMode ? (
-          <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
-        ) : (
-          <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
-        )}
+      <Box background="brand" fill>
+        <Box
+          background={"url(" + cityGif + ")"}
+          align="center"
+          justify="center"
+          fill
+        >
+          <Heading level="2">WFH Buddy</Heading>
+          {isWorkMode ? (
+            <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
+          ) : (
+            <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
+          )}
+        </Box>
       </Box>
     </Grommet>
   );

@@ -510,6 +510,7 @@ module.exports = function (webpackEnv) {
       {
         apply: (compiler) => {
           compiler.hooks.afterEmit.tap("AfterEmitPlugin", (compilation) => {
+            /*
             exec(
               "tsc src/background.ts --outDir build && echo background.ts compiled!",
               (err, stdout, stderr) => {
@@ -524,6 +525,7 @@ module.exports = function (webpackEnv) {
                 if (stderr) process.stderr.write(stderr);
               }
             );
+            */
             exec(
               'sed -E \'s/"root"/"root-newtab"/\' build/index.html > build/newtab.html && echo Newtab file sed!',
               (err, stdout, stderr) => {

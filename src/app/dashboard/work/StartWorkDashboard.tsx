@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
 import Todolist from "./todolist";
+import TitleBar from "../components/TitleBar";
 
 interface StartWorkDashboardProps {
   startWork: () => void;

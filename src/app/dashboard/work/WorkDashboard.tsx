@@ -5,6 +5,7 @@ import createPersistedState from "use-persisted-state";
 import MainWorkDashboard from "./MainWorkDashboard";
 import StartWorkDashboard from "./StartWorkDashboard";
 import BreakPage from "./BreakPage";
+import TitleBar from "../components/TitleBar";
 
 interface WorkDashboardProps {
   startHomeMode: () => void;
@@ -19,6 +20,7 @@ const WorkDashboard = (props: WorkDashboardProps) => {
 
   return (
     <>
+      <TitleBar menu={true} heading={true} clock={true}/>
       {isBreak ? 
         <BreakPage endBreak={() => setIsBreak(false)} />
       :

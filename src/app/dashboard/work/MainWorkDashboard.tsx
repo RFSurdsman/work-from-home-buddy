@@ -11,7 +11,6 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
 
   return (
     <>
-      <TitleBar/>
       <Box align="center" justify="center" flex="grow">
         <Button
           primary

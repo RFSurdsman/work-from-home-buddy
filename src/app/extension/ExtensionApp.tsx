@@ -5,7 +5,7 @@ import createPersistedState from "use-persisted-state";
 import { WorkModeTheme, HomeModeTheme } from "../styles/themes";
 import Todolist from "../../todolist";
 import { WindowInfo } from "../types";
-import { updateWindows } from "../components/UpdateWindows";
+import updateWindows from "../components/UpdateWindows";
 
 const ExtensionApp = () => {
   const useWorkModeState = createPersistedState("workMode");

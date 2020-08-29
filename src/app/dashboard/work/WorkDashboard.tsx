@@ -23,23 +23,21 @@ const WorkDashboard = (props: WorkDashboardProps) => {
       <TitleBar menu={true} heading={true} clock={true}/>
       {isBreak ? 
         <BreakPage endBreak={() => setIsBreak(false)} />
-      :
-       (isWorkStarted) ?
-          <MainWorkDashboard 
-            startHomeMode={() => {
-              startHomeMode()
-              setTimeout(() => {
-                setIsWorkStarted(false);
-              }, 300);
-            }}
-            time={time}
-          />
-        :
-          <StartWorkDashboard 
-            startWork={() => {setIsWorkStarted(true)}}
-            time={time}
-          />
-      }
+      : isWorkStarted ? (
+        <MainWorkDashboard
+          startHomeMode={() => {
+            setIsWorkStarted(false);
+            startHomeMode();
+          }}
+        />
+      ) : (
+        <StartWorkDashboard
+          startWork={() => {
+            setIsWorkStarted(true);
+          }}
+          time={time}
+        />
+      )}
     </>
   );
 };

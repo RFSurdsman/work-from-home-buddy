@@ -12,7 +12,7 @@ const BreakPage: React.FC<Props> = (props: Props): JSX.Element => {
 
   const incrementMeter = () => {
     setTimeout(() => {
-      setProgressValue((progressValue) => progressValue + 0.05);
+      setProgressValue((progressValue) => progressValue + 0.1);
       incrementMeter();
     }, 100);
   };

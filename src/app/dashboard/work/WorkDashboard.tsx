@@ -10,14 +10,11 @@ interface WorkDashboardProps {
 }
 const WorkDashboard = (props: WorkDashboardProps) => {
   const { startHomeMode, time } = props;
-
   const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
-  if (isBreak) {
-    return <BreakPage endBreak={() => setIsBreak(false)} />;
-  }
-
-  return (
+  return isBreak ? (
+    <BreakPage endBreak={() => setIsBreak(false)} />
+  ) : (
     <>
       <Heading level="1">Good morning, Tony</Heading>
       <Clock type="digital" size="xlarge" margin="medium" />

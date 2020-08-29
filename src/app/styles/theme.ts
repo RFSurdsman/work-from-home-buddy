@@ -25,3 +25,5 @@ export const workModeTheme = {
     },
   },
 };
+
+export default homeModeTheme;

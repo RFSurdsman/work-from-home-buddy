@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { Box, Grommet, Grid, Button, Heading, CheckBox, ResponsiveContext, Paragraph } from "grommet";
-import Todolist from "../../todolist";
 import theme from "../styles/theme";
+import Todolist from "../dashboard/work/todolist";
 
 let tasks = ['Watch Lecture', 'Review Chris PR', 'Prepare for Interviews', 'Make presentation slides'];
 
@@ -104,11 +104,12 @@ const DateList = (dateSchedule: DateSchedule) => {
 
 const PlanningApp = () => {
   return (
-    <Grommet theme={theme}>
-        <Box justify='center' align='center'>
+    <Grommet full theme={theme}>
+        <Box background='brand' fill justify='center' align='center' pad='xlarge'>
             <Grid
+                fill
                 rows={['xsmall', 'auto']}
-                columns={['1/2', '1/4', '1/4']}
+                columns={['1/3', '1/3', '1/3']}
                 gap='medium'
                 areas={[
                     { name: 'header', start: [0, 0], end: [2, 0] },
@@ -117,23 +118,23 @@ const PlanningApp = () => {
                     { name: 'tomorrow', start: [2, 1], end: [2, 1] },
                 ]}
             >
-                <Box gridArea="header" background="brand" justify='center'>
+                <Box gridArea="header" round='medium' background="brand" justify='center'>
                     <Heading margin='medium'>Plan Your Day</Heading>
                 </Box>
-                <Box gridArea="calendar" background="light-5" pad='medium'>
+                <Box gridArea="calendar" round='medium' background="light-2" pad='medium'>
                     <Heading level={3} margin='none' color="#000">Weekly Schedule</Heading>
                     {events.map(dateSchedule => DateList(dateSchedule))}
                 </Box>
-                <Box gridArea="yesterday" background="light-2" pad='medium'>
+                <Box gridArea="yesterday" round='medium' background="light-2" pad='medium'>
                     <Heading level={3} margin='none' color="#000">Yesterday</Heading>
                     {tasks.map(task => ToDoItem(task))}
                 </Box>
-                <Box gridArea="tomorrow" background="light-2" pad='medium'>
-                    <Heading level={3} margin='none' color="#000">Today</Heading>
+                <Box gridArea="tomorrow">
+                    {/* <Heading level={3} margin='none' color="#000">Today</Heading> */}
                     <Todolist />
                 </Box>
             </Grid>
-            <Button primary label="Start Your Day" size="large" margin={{'top': '50px'}} />
+            <Button primary color='secondary' label="Start Your Day" size="large" margin={{'top': '20px'}} />
         </Box>
     </Grommet>
   );

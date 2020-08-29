@@ -5,7 +5,15 @@
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["topSites", "tabs", "bookmarks", "cookies", "http://*/*", "https://*/*"],
+  "permissions": [
+    "topSites",
+    "tabs",
+    "bookmarks",
+    "cookies",
+    "http://*/*",
+    "https://*/*",
+    "storage"
+  ],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

@@ -1,27 +1,15 @@
-const commonTheme = {
-  font: {
-    family: "Roboto",
-  },
-};
-
-export const homeModeTheme = {
+export const theme = {
   global: {
-    ...commonTheme,
     colors: {
-      brand: "rgb(40, 230, 150)",
+      home: "rgb(40, 230, 150)",
+      work: "rgb(50, 200, 250)",
       secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
+      todo: "rgb(180, 180, 180)",
+      todoDone: "rgb(71, 255, 120)",
+      text: "rgb(245, 245, 245)",
     },
-  },
-};
-
-export const workModeTheme = {
-  global: {
-    ...commonTheme,
-    colors: {
-      brand: "rgb(50, 200, 250)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
+    font: {
+      family: "Roboto",
     },
   },
 };

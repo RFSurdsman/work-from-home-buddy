@@ -21,9 +21,8 @@ const HomeDashboard = (props: HomeDashboardProps) => {
           onClick={startWorkMode}
         />
       </Box>
-      
     </>
-  )
+  );
 };
 
 export default HomeDashboard;

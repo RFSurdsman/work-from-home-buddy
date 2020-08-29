@@ -7,9 +7,9 @@ import updateWindows from "../components/UpdateWindows";
 import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
+import { theme } from "../styles/theme";
 import MenuButton from "./components/MenuButton";
-  
-import { workModeTheme, homeModeTheme } from "../styles/theme";
+import cityGif from "../../resources/city.gif";
 
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -32,14 +32,25 @@ const DashboardApp = () => {
     updateWindows(savedWindows, setSavedWindows);
     setTimeout(() => {
       let workMode = !isWorkMode;
-      toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
+      toggleBookmarks(
+        workMode,
+        workBookmarksId,
+        homeBookmarksId,
+        setWorkBookmarksId,
+        setHomeBookmarksId
+      );
       setIsWorkMode(workMode);
     }, 100);
-  }
+  };
 
   return (
-    <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme} full>
-      <Box fill align="center" justify="center" background="brand">
+    <Grommet theme={theme} full>
+      <Box
+        fill
+        align="center"
+        justify="center"
+        background={"url(" + cityGif + ")"}
+      >
         <Heading level="2">WFH Buddy</Heading>
         {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
         {/* <Image fit="cover" src={cityGif} /> */}
@@ -49,7 +60,6 @@ const DashboardApp = () => {
           <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
         )}
       </Box>
-
     </Grommet>
   );
 };

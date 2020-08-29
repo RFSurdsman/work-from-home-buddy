@@ -10,7 +10,7 @@ import {
   Heading,
 } from "grommet";
 import createPersistedState from "use-persisted-state";
-import { workModeTheme } from "../styles/theme";
+import { theme } from "../styles/theme";
 
 const NotificationApp: React.FC = (): JSX.Element | null => {
   const [isShowing, setIsShowing] = useState(true);
@@ -34,7 +34,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
   }, [progressValue]);
 
   return isShowing ? (
-    <Grommet theme={workModeTheme}>
+    <Grommet theme={theme}>
       <Card
         animation="fadeIn"
         pad="10px"
@@ -42,7 +42,7 @@ const NotificationApp: React.FC = (): JSX.Element | null => {
         width="400px"
         align="center"
         justify="center"
-        background="brand"
+        background="work"
         round="large"
       >
         <div style={{ top: "10px", right: "10px", position: "absolute" }}>

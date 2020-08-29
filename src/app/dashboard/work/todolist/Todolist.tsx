@@ -4,14 +4,13 @@ import {
   DropResult,
   Droppable,
   Draggable,
+  DraggableProvided,
 } from "react-beautiful-dnd";
 import {
   Card,
   CardHeader,
   CardFooter,
-  Form,
   TextInput,
-  FormField,
   Box,
   Heading,
   CheckBox,
@@ -56,6 +55,17 @@ const Todolist: React.FC = () => {
     setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
   };
 
+  const handleTodoChecked = (id: number, checked: boolean) => {
+    setTodos((prevState) =>
+      prevState.map((todo) => {
+        if (id === todo.id) {
+          todo.done = checked;
+        }
+        return todo;
+      })
+    );
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="todoList">
@@ -82,25 +92,36 @@ const Todolist: React.FC = () => {
                 index={index}
               >
                 {(provided, snapshot) => (
-                  <Card
-                    direction="row"
-                    background="brand"
-                    pad="small"
-                    margin="small"
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                    <Close onClick={() => handleRemoveTodo(todo.id)} />
-                    {todo.description}
-                    <CheckBox
-                      checked={todo.done}
-                      onChange={(event) => (todo.done = event.target.checked)}
-                    />
-                  </Card>
+                  <>
+                    <Card
+                      direction="row"
+                      background={todo.done ? "todoDone" : "todo"}
+                      pad="small"
+                      margin="small"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      justify="between"
+                    >
+                      <Box direction="row">
+                        <Close
+                          onClick={() => handleRemoveTodo(todo.id)}
+                          style={{ marginRight: "12px" }}
+                        />
+                        {todo.description}
+                      </Box>
+                      <CheckBox
+                        checked={todo.done}
+                        onChange={(event) =>
+                          handleTodoChecked(todo.id, event.target.checked)
+                        }
+                      />
+                    </Card>
+                  </>
                 )}
               </Draggable>
             ))}
+            {provided.placeholder}
             <CardFooter>
               <Card
                 background="brand"
@@ -110,21 +131,14 @@ const Todolist: React.FC = () => {
                 width="full"
                 direction="row"
               >
-                <Box
-                  direction="row"
-                  align="center"
-                  pad="none"
-                  pad-left="medium"
-                >
-                  <Add size="medium" margin-left="medium" />
-                  <TextInput
-                    plain={true}
-                    placeholder="add a new todo"
-                    value={addTodoValue}
-                    onChange={(event) => setAddTodoValue(event.target.value)}
-                    onKeyDown={handleAddTodo}
-                  />
-                </Box>
+                <TextInput
+                  icon={<Add />}
+                  plain={true}
+                  placeholder="add a new todo"
+                  value={addTodoValue}
+                  onChange={(event) => setAddTodoValue(event.target.value)}
+                  onKeyDown={handleAddTodo}
+                />
               </Card>
             </CardFooter>
           </Card>

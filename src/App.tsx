@@ -3,6 +3,8 @@ import "./App.css";
 import { Box, Grommet, Button } from "grommet";
 import createPersistedState from "use-persisted-state";
 
+declare var gapi: any;
+
 const commonTheme = {
   font: {
     family: "Roboto",
@@ -32,49 +34,6 @@ const WorkModeTheme = {
     },
   },
 };
-
-// function MyApp() {
-//   const [isWorkMode, setIsWorkMode] = useState(false);
-//   const [homeBookmarkId, setHomeBookmarkId] = useState('');
-
-  // const setupWorkMode = (isWorkMode: boolean, setHomeBookmarkId: any) => {
-  //   chrome.windows.getAll({ 'populate': true }, windows => {
-  //     console.log(windows);
-  //   });
-    
-  //   chrome.bookmarks.getTree(bookmarkTree => {
-  //     // Store bookmarks in bookmark bar
-  //     if (!bookmarkTree[0].children) {
-  //       // Error because bookmark tree always has two children
-  //       return;
-  //     }
-  //     let bookmarkBar = bookmarkTree[0].children[0];
-
-  //     console.log(bookmarkBar);
-
-
-  //     if (isWorkMode) {
-  //       chrome.bookmarks.create({
-  //         'title': 'My Home Bookmarks'
-  //       }, (homeBookmarks) => {
-  //         setHomeBookmarkId(homeBookmarks.id);
-  //         bookmarkBar.children && bookmarkBar.children.forEach(bookmark => {
-  //           chrome.bookmarks.move(bookmark.id, { 'parentId': homeBookmarks.id });
-  //         })
-  //         console.log('Successfully created home bookmarks with id: ' + homeBookmarks.id);
-  //       })
-  //     } else {
-  //       chrome.bookmarks.getChildren(homeBookmarkId, children => {
-  //         children.forEach(bookmark => {
-  //           chrome.bookmarks.move(bookmark.id, { 'parentId': bookmarkBar.id });
-  //         })
-  //       })
-  //       console.log('Removed bookmark with id: ' + homeBookmarkId);
-  //       setHomeBookmarkId('');
-  //     }
-      
-  //   });
-//   }
 
 export const ExtensionApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -117,6 +76,8 @@ export const NewTabApp = () => {
     setInterval(() => {
       setTime(Date.now());
     }, 1000);
+
+    console.log(gapi);
   });
 
   const toggleBookmarks = (isWorkMode: boolean) => {    

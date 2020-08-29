@@ -5,9 +5,18 @@ import {
   Droppable,
   Draggable,
 } from "react-beautiful-dnd";
-import { Card, Heading } from "grommet";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  Form,
+  TextInput,
+  FormField,
+  Box,
+} from "grommet";
 import Todo from "./Todo";
 import createPersistedState from "use-persisted-state";
+import { Add } from "grommet-icons";
 
 const Todolist: React.FC = () => {
   const myTodos = [new Todo("hi"), new Todo("hello"), new Todo("eat")];
@@ -45,9 +54,7 @@ const Todolist: React.FC = () => {
             align="stretch"
             justify="center"
           >
-            <Heading level="2" margin="none">
-              Todos
-            </Heading>
+            <CardHeader>Todos</CardHeader>
             {todos.map((todo, index) => (
               <Draggable
                 key={todo.id}
@@ -68,6 +75,26 @@ const Todolist: React.FC = () => {
                 )}
               </Draggable>
             ))}
+            <CardFooter>
+              <Card
+                background="brand"
+                pad="none"
+                margin="small"
+                ref={provided.innerRef}
+                width="full"
+                direction="row"
+              >
+                <Box
+                  direction="row"
+                  align="center"
+                  pad="none"
+                  pad-left="medium"
+                >
+                  <Add size="medium" />
+                  <TextInput plain={true} placeholder="add a new todo" />
+                </Box>
+              </Card>
+            </CardFooter>
           </Card>
         )}
       </Droppable>

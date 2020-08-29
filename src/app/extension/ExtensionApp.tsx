@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import { Box, Grommet, Button, Image, Card } from "grommet";
 import createPersistedState from "use-persisted-state";
-import { WorkModeTheme, HomeModeTheme } from "../styles/themes";
 import Todolist from "../../todolist";
 import { WindowInfo } from "../types";
 import { updateWindows } from "../components/UpdateWindows";
+import theme from "../styles/theme";
 
 const ExtensionApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -15,7 +15,7 @@ const ExtensionApp = () => {
   const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
 
   return (
-    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
+    <Grommet theme={theme}>
       <Box
         height="medium"
         width="medium"

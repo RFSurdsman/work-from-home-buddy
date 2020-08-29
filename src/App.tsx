@@ -1,37 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Box, Grommet, Button, Image, Card } from "grommet";
+import { Box, Grommet, Button, Image, Card, Clock, Heading } from "grommet";
 import createPersistedState from "use-persisted-state";
 import cityGif from "./resources/city.gif";
 
 import Todolist from "./todolist";
 
-const commonTheme = {
-  font: {
-    family: "Roboto",
-    size: "36px",
-    height: "40px",
-  },
-};
-
-const HomeModeTheme = {
+const Theme = {
   global: {
-    ...commonTheme,
     colors: {
-      brand: "rgb(40, 230, 150)",
+      home: "rgb(50, 250, 200)",
+      work: "rgb(50, 200, 250)",
       secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
+      text: "rgb(250, 250, 250)",
     },
-  },
-};
-
-const WorkModeTheme = {
-  global: {
-    ...commonTheme,
-    colors: {
-      brand: "rgb(50, 200, 250)",
-      secondary: "rgb(50, 150, 250)",
-      text: "#ebebeb",
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px",
     },
   },
 };
@@ -41,7 +27,7 @@ export const ExtensionApp = () => {
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
 
   return (
-    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme}>
+    <Grommet theme={Theme}>
       <Box
         height="medium"
         width="medium"
@@ -49,7 +35,7 @@ export const ExtensionApp = () => {
         justify="center"
         background="brand"
       >
-        <h1>WFH Buddy</h1>
+        <Heading level="2">WFH Buddy</Heading>
         <Button
           primary
           label={isWorkMode ? " End work mode" : "Start work mode"}
@@ -68,24 +54,22 @@ export const NewTabApp = () => {
   const useWorkModeState = createPersistedState("workMode");
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
 
-  const [time, setTime] = useState(Date.now());
-
-  useEffect(() => {
-    setInterval(() => {
-      setTime(Date.now());
-    }, 1000);
-  });
-
   return (
-    <Grommet theme={isWorkMode ? WorkModeTheme : HomeModeTheme} full>
-      <Box fill align="center" justify="center" background="brand">
-        <h6>WFH Buddy</h6>
-        <h3>Good morning, Tony</h3>
-        <h1>{new Date(time).toLocaleTimeString()}</h1>
+    <Grommet theme={Theme} full>
+      <Box
+        fill
+        align="center"
+        justify="center"
+        background={isWorkMode ? "work" : "home"}
+      >
+        <Heading level="2">WFH Buddy</Heading>
+        <Heading level="1">Good morning, Tony</Heading>
+        <Clock type="digital" size="xlarge" margin="medium" />
+        {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
         {/* <Image fit="cover" src={cityGif} /> */}
         <Button
           primary
-          label={isWorkMode ? " End work mode" : "Start work mode"}
+          label={isWorkMode ? "End work mode" : "Start work mode"}
           color="secondary"
           onClick={() => {
             console.log("BUTTON CLICKED");

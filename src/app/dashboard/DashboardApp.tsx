@@ -7,9 +7,9 @@ import updateWindows from "../components/UpdateWindows";
 import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
+import { theme } from "../styles/theme";
 import MenuButton from "./components/MenuButton";
-  
-import { workModeTheme, homeModeTheme } from "../styles/theme";
+import cityGif from "../../resources/beach.png";
 
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -25,21 +25,33 @@ const DashboardApp = () => {
   const workHomeSwitch = () => {
     let workMode = !isWorkMode;
     updateWindows(savedWindows, setSavedWindows, () => {setIsWorkMode(workMode);});
-    toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
+    toggleBookmarks(
+      workMode,
+      workBookmarksId,
+      homeBookmarksId,
+      setWorkBookmarksId,
+      setHomeBookmarksId
+    );
   }
 
   return (
-    <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme} full>
+    <Grommet theme={theme} full>
       <Box fill align="center" justify="center" background="brand">
-        {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-        {/* <Image fit="cover" src={cityGif} /> */}
-        {isWorkMode ? (
-          <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
-        ) : (
-          <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
-        )}
+        <Box
+            background={"url(" + cityGif + ")"}
+            align="center"
+            justify="center"
+            fill
+          >
+          {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
+          {/* <Image fit="cover" src={cityGif} /> */}
+          {isWorkMode ? (
+            <WorkDashboard startHomeMode={workHomeSwitch} time={time} />
+          ) : (
+            <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
+          )}
+        </Box>
       </Box>
-
     </Grommet>
   );
 };

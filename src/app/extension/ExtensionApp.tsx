@@ -5,7 +5,7 @@ import { WindowInfo } from "../types";
 import updateWindows from "../components/UpdateWindows";
 import { workModeTheme, homeModeTheme } from "../styles/theme";
 
-const ExtensionApp = () => {
+const ExtensionApp: React.FC = (): JSX.Element => {
   const useWorkModeState = createPersistedState("workMode");
   const useWindowsState = createPersistedState("windows");
 

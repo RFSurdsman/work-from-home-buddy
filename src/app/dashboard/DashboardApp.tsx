@@ -22,37 +22,27 @@ const DashboardApp = () => {
   const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
   const [time, setTime] = useState(Date.now());
 
-  useEffect(() => {
-    setInterval(() => {
-      setTime(Date.now());
-    }, 1000);
-  });
-
   const workHomeSwitch = () => {
-    updateWindows(savedWindows, setSavedWindows);
-    setTimeout(() => {
-      let workMode = !isWorkMode;
-      toggleBookmarks(
-        workMode,
-        workBookmarksId,
-        homeBookmarksId,
-        setWorkBookmarksId,
-        setHomeBookmarksId
-      );
-      setIsWorkMode(workMode);
-    }, 100);
-  };
+    let workMode = !isWorkMode;
+    updateWindows(savedWindows, setSavedWindows, () => {setIsWorkMode(workMode);});
+    toggleBookmarks(
+      workMode,
+      workBookmarksId,
+      homeBookmarksId,
+      setWorkBookmarksId,
+      setHomeBookmarksId
+    );
+  }
 
   return (
     <Grommet theme={theme} full>
-      <Box background="brand" align="center" justify="center" fill>
+      <Box fill align="center" justify="center" background="brand">
         <Box
-          background={"url(" + cityGif + ")"}
-          align="center"
-          justify="center"
-          fill
-        >
-          <Heading level="2">WFH Buddy</Heading>
+            background={"url(" + cityGif + ")"}
+            align="center"
+            justify="center"
+            fill
+          >
           {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
           {/* <Image fit="cover" src={cityGif} /> */}
           {isWorkMode ? (

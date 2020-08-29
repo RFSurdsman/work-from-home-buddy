@@ -25,8 +25,10 @@ const WorkDashboard = (props: WorkDashboardProps) => {
        (isWorkStarted) ?
           <MainWorkDashboard 
             startHomeMode={() => {
-              setIsWorkStarted(false)
               startHomeMode()
+              setTimeout(() => {
+                setIsWorkStarted(false);
+              }, 300);
             }}
             time={time}
           />

@@ -7,6 +7,8 @@ import updateWindows from "../components/UpdateWindows";
 import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
+import MenuButton from "./components/MenuButton";
+  
 import { workModeTheme, homeModeTheme } from "../styles/theme";
 
 const DashboardApp = () => {
@@ -27,17 +29,13 @@ const DashboardApp = () => {
   });
 
   const workHomeSwitch = () => {
-    let workMode = !isWorkMode;
     updateWindows(savedWindows, setSavedWindows);
-    toggleBookmarks(
-      workMode,
-      workBookmarksId,
-      homeBookmarksId,
-      setWorkBookmarksId,
-      setHomeBookmarksId
-    );
-    setIsWorkMode(workMode);
-  };
+    setTimeout(() => {
+      let workMode = !isWorkMode;
+      toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
+      setIsWorkMode(workMode);
+    }, 100);
+  }
 
   return (
     <Grommet theme={isWorkMode ? workModeTheme : homeModeTheme} full>
@@ -51,6 +49,7 @@ const DashboardApp = () => {
           <HomeDashboard startWorkMode={workHomeSwitch} time={time} />
         )}
       </Box>
+
     </Grommet>
   );
 };

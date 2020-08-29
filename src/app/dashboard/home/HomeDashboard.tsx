@@ -10,15 +10,18 @@ const HomeDashboard = (props: HomeDashboardProps) => {
 
   return (
     <>
-      <Heading level="1">Good morning, Tony</Heading>
-      <Clock type="digital" size="xlarge" margin="medium" />
-      <h1>{new Date(time).toLocaleTimeString()}</h1>
-      <Button
-        primary
-        label={"Start Work"}
-        color="secondary"
-        onClick={startWorkMode}
-      />
+      <Box flex="grow" align="center" justify="center">
+        <Heading level="2">WFH Buddy</Heading>
+        <Heading level="1">Good morning, Tony</Heading>
+        <Clock type="digital" size="xlarge" margin="medium" />
+        <Button
+          primary
+          label={"Start Work"}
+          color="secondary"
+          onClick={startWorkMode}
+        />
+      </Box>
+      
     </>
   )
 };

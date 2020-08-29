@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
 import Todolist from "./todolist";
 import createPersistedState from "use-persisted-state";
+import MainWorkDashboard from "./MainWorkDashboard";
+import StartWorkDashboard from "./StartWorkDashboard";
 import BreakPage from "./BreakPage";
 
 interface WorkDashboardProps {
@@ -12,19 +14,28 @@ const WorkDashboard = (props: WorkDashboardProps) => {
   const { startHomeMode, time } = props;
   const [isBreak, setIsBreak] = createPersistedState("isBreak")(false);
 
-  return isBreak ? (
-    <BreakPage endBreak={() => setIsBreak(false)} />
-  ) : (
+  const useWorkStarted = createPersistedState("workStarted");
+  const [isWorkStarted, setIsWorkStarted] = useWorkStarted(false);
+
+  return (
     <>
-      <Heading level="1">Good morning, Tony</Heading>
-      <Clock type="digital" size="xlarge" margin="medium" />
-      <Button
-        primary
-        label={"Finish Work"}
-        color="secondary"
-        onClick={startHomeMode}
-      />
-      <Todolist />
+      {isBreak ? 
+        <BreakPage endBreak={() => setIsBreak(false)} />
+      :
+       (isWorkStarted) ?
+          <MainWorkDashboard 
+            startHomeMode={() => {
+              setIsWorkStarted(false)
+              startHomeMode()
+            }}
+            time={time}
+          />
+        :
+          <StartWorkDashboard 
+            startWork={() => {setIsWorkStarted(true)}}
+            time={time}
+          />
+      }
     </>
   );
 };

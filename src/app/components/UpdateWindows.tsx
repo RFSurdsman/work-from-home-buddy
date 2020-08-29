@@ -4,7 +4,7 @@ import _ from "lodash";
 export const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: WindowInfo[]) => void) => {
 
     chrome.windows.getAll({populate: true}, (windows) => {
-      const saved_windows: WindowInfo[] = windows.map(window => {
+      const new_saved_windows: WindowInfo[] = windows.map(window => {
         const window_state = _.pick(window, ['height', 'width', 'top', 'left', 'type', 'state']);
         const urls = window.tabs!
                       .map(tab => tab.url!)
@@ -23,6 +23,6 @@ export const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (wind
       :
         chrome.windows.create({});
   
-      setSavedWindows(saved_windows);
+      setSavedWindows(new_saved_windows);
     });
   }

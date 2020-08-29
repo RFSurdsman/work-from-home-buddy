@@ -18,3 +18,4 @@ serviceWorker.unregister();
 
 // Trick for hot reloading
 require("./background");
+require("./restrictedPage");

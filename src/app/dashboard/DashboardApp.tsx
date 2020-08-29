@@ -8,6 +8,7 @@ import toggleBookmarks from "../components/ToggleBookmarks";
 import HomeDashboard from "./home/HomeDashboard";
 import WorkDashboard from "./work/WorkDashboard";
 import theme from "../styles/theme";
+import { Menu } from "grommet-icons";
   
 const DashboardApp = () => {
   const useWorkModeState = createPersistedState("workMode");
@@ -28,29 +29,37 @@ const DashboardApp = () => {
 
   const workHomeSwitch = () => {
     updateWindows(savedWindows, setSavedWindows);
-    let workMode = !isWorkMode;
-    toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
-    setIsWorkMode(workMode);
+    setTimeout(() => {
+      let workMode = !isWorkMode;
+      toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
+      setIsWorkMode(workMode);
+    }, 100);
   }
-
   
   return (
     <Grommet theme={theme} full>
-      <Box fill align="center" justify="center" background="brand">
-        <Heading level="2">WFH Buddy</Heading>
-        {/* <Heading level="1">{new Date(time).toLocaleTimeString()}</Heading> */}
-        {/* <Image fit="cover" src={cityGif} /> */}
-        {(isWorkMode) ?
-          <WorkDashboard 
-            startHomeMode={workHomeSwitch}
-            time={time}
-          />
-        :
-          <HomeDashboard 
-            startWorkMode={workHomeSwitch}
-            time={time}
-          />
-        }
+      <Box fill background="brand" alignContent="start" justify="start">
+        <Button 
+          icon={<Menu size="medium"/>} 
+          alignSelf="start" 
+          focusIndicator={false} 
+          size="medium"
+        />
+        <Box flex="grow" align="center" justify="center">
+          <Heading level="2">WFH Buddy</Heading>
+          {/* <Image fit="cover" src={cityGif} /> */}
+          {(isWorkMode) ?
+            <WorkDashboard 
+              startHomeMode={workHomeSwitch}
+              time={time}
+            />
+          :
+            <HomeDashboard 
+              startWorkMode={workHomeSwitch}
+              time={time}
+            />
+          }
+        </Box>
       </Box>
     </Grommet>
   );

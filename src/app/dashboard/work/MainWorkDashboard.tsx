@@ -12,6 +12,12 @@ const MainWorkDashboard = (props: MainWorkDashboardProps) => {
 
   return (
     <>
+      <Button
+        primary
+        label={"Finish Work"}
+        color="secondary"
+        onClick={startHomeMode}
+      />
     </>
   )
 };

@@ -3,7 +3,7 @@ import { Box, Grommet, Button, Image, Card, Heading, Clock } from "grommet";
 import Todolist from "./todolist";
 import createPersistedState from "use-persisted-state";
 import MainWorkDashboard from "./MainWorkDashboard";
-import StartWorkDashboard from "./MainWorkDashboard";
+import StartWorkDashboard from "./StartWorkDashboard";
 
 interface WorkDashboardProps {
   startHomeMode: () => void;
@@ -19,7 +19,10 @@ const WorkDashboard = (props: WorkDashboardProps) => {
     <>
        {(isWorkStarted) ?
           <MainWorkDashboard 
-            startHomeMode={startHomeMode}
+            startHomeMode={() => {
+              setIsWorkStarted(false)
+              startHomeMode()
+            }}
             time={time}
           />
         :

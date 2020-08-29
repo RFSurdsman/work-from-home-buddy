@@ -18,7 +18,7 @@ import {
 } from "grommet";
 import Todo from "./Todo";
 import createPersistedState from "use-persisted-state";
-import { Add } from "grommet-icons";
+import { Add, Close } from "grommet-icons";
 
 const Todolist: React.FC = () => {
   const myTodos = [new Todo("hi"), new Todo("hello"), new Todo("eat")];
@@ -50,6 +50,10 @@ const Todolist: React.FC = () => {
       setTodos((prevState) => [...prevState, newTodo]);
       setAddTodoValue("");
     }
+  };
+
+  const handleRemoveTodo = (id: number) => {
+    setTodos((prevState) => prevState.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -87,6 +91,7 @@ const Todolist: React.FC = () => {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                   >
+                    <Close onClick={() => handleRemoveTodo(todo.id)} />
                     {todo.description}
                     <CheckBox
                       checked={todo.done}
@@ -111,14 +116,13 @@ const Todolist: React.FC = () => {
                   pad="none"
                   pad-left="medium"
                 >
-                  <Add size="medium" />
+                  <Add size="medium" margin-left="medium" />
                   <TextInput
                     plain={true}
                     placeholder="add a new todo"
                     value={addTodoValue}
                     onChange={(event) => setAddTodoValue(event.target.value)}
                     onKeyDown={handleAddTodo}
-                    width="auto"
                   />
                 </Box>
               </Card>

@@ -27,8 +27,8 @@ const DashboardApp = () => {
   });
 
   const workHomeSwitch = () => {
-    updateWindows(savedWindows, setSavedWindows);
     let workMode = !isWorkMode;
+    updateWindows(savedWindows, setSavedWindows, () => {setIsWorkMode(workMode)});
     toggleBookmarks(workMode, workBookmarksId, homeBookmarksId, setWorkBookmarksId, setHomeBookmarksId);
     setIsWorkMode(workMode);
   }

@@ -1,7 +1,7 @@
 import { WindowInfo } from "../types";
 import _ from "lodash";
 
-const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: WindowInfo[]) => void, setMode: () => void) => {
+const updateWindows = (savedWindows: "", setSavedWindows: (windows: string) => void, setMode: () => void) => {
   chrome.windows.getAll({populate: true}, (windows) => {
     let window_ids = [] as number[];
     const new_saved_windows: WindowInfo[] = windows.map(window => {
@@ -13,9 +13,12 @@ const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: Wi
       return {...window_state, url: urls};
     });
     
-    (savedWindows) ?
-      savedWindows.forEach((window: WindowInfo, i: Number) => {
-        (i === savedWindows.length - 1) ?
+    console.log(savedWindows);
+    const saved_windows = (savedWindows.length > 0) ? JSON.parse(savedWindows) : [];
+    console.log(savedWindows);
+    (saved_windows.length > 0) ?
+      saved_windows.forEach((window: WindowInfo, i: Number) => {
+        (i === saved_windows.length - 1) ?
           chrome.windows.create({...window, url: ["chrome://newtab", ...window.url]})
         :
           chrome.windows.create({...window})
@@ -30,7 +33,7 @@ const updateWindows = (savedWindows: WindowInfo[], setSavedWindows: (windows: Wi
       setMode();
     }, 300);
 
-    setSavedWindows(new_saved_windows);
+    setSavedWindows(JSON.stringify(new_saved_windows));
   });
 }
 

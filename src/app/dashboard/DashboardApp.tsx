@@ -18,7 +18,7 @@ const DashboardApp = () => {
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
   const [homeBookmarksId, setHomeBookmarksId] = useHomeBookmarksIdState("");
   const [workBookmarksId, setWorkBookmarksId] = useWorkBookmarksIdState("");
-  const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
+  const [savedWindows, setSavedWindows] = useWindowsState("");
   const [time, setTime] = useState(Date.now());
   const [isWorkedState, setIsWorkedStarted] = createPersistedState(
     "workStarted"

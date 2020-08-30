@@ -10,7 +10,7 @@ const ExtensionApp: React.FC = (): JSX.Element => {
   const useWindowsState = createPersistedState("windows");
 
   const [isWorkMode, setIsWorkMode] = useWorkModeState(false);
-  const [savedWindows, setSavedWindows] = useWindowsState([] as WindowInfo[]);
+  const [savedWindows, setSavedWindows] = useWindowsState("");
 
   return (
     <Grommet theme={theme}>
@@ -53,7 +53,7 @@ const ExtensionApp: React.FC = (): JSX.Element => {
             label={isWorkMode ? "Finish Work" : "Start Work"}
             color="secondary"
             onClick={() => {
-              updateWindows(savedWindows, setSavedWindows, () =>
+              updateWindows(JSON.stringify(savedWindows), setSavedWindows, () =>
                 setIsWorkMode(!isWorkMode)
               );
             }}
